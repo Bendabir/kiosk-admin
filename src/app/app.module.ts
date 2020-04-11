@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { CoreModule } from '@app/core.module';
 import { SharedModule } from '@shared/shared.module';
+import { AuthModule } from '@modules/auth/auth.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { AuthLayoutComponent } from '@layout/auth-layout';
   imports: [
     // Angular
     BrowserModule,
+
+    // 3rd party
+    AuthModule,
 
     // Core & Shared
     CoreModule,
