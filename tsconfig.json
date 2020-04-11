@@ -19,7 +19,12 @@
       "dom"
     ],
     "paths": {
-      "@app/*": ["app/core/*"]
+      "@app/*": ["app/core/*"],
+      "@data/*": ["app/data/*"],
+      "@env": ["environments/environment"],
+      "@layout/*": ["app/layout/*"],
+      "@modules/*": ["app/modules/*"],
+      "@shared/*": ["app/shared/*"]
     }
   },
   "angularCompilerOptions": {
