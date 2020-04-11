@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+$kiosk-dark-primary: mat-palette($mat-blue-grey);
+$kiosk-dark-accent: mat-palette($mat-light-blue);
+$kiosk-dark-warn: mat-palette($mat-red);
+
+$kiosk-dark-theme: mat-dark-theme(
+  $kiosk-dark-primary,
+  $kiosk-dark-accent,
+  $kiosk-dark-warn
+);
