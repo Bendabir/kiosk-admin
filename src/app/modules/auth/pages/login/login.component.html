@@ -10,7 +10,7 @@
         </p>
         <form #loginForm="ngForm">
             <mat-form-field>
-                <input matInput placeholder="API Key" [type]="hide ? 'password' : 'text'">
+                <input matInput placeholder="API Key" [type]="hide ? 'password' : 'text'" #apiKey>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide API key'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -20,6 +20,6 @@
     <mat-card-actions align="end">
         <div fxFlex></div>
         <button mat-button (click)="loginForm.resetForm()">Clear</button>
-        <button mat-button color="accent">Log In</button>
+        <button mat-button color="accent" (click)="login(apiKey.value)" (keyup.enter)="login(apiKey.value)">Log In</button>
     </mat-card-actions>
 </mat-card>

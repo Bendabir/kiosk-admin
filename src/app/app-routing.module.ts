@@ -1,13 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from '@app/guards/auth.guard';
 import { AuthLayoutComponent } from '@layout/auth-layout';
+import { MainLayoutComponent } from '@layout/main-layout';
+import { environment } from '@env';
 
 
 const routes: Routes = [{
   path: '',
-  redirectTo: '/auth/login',
+  redirectTo: environment.routes.home,
   pathMatch: 'full'
+}, {
+  path: 'home',
+  component: MainLayoutComponent,
+  canActivate: [AuthGuard],
+  children: [{
+    path: '',
+    redirectTo: environment.routes.home,
+    pathMatch: 'full'
+  }, {
+    path: 'tvs',
+    loadChildren: () => import('@modules/tvs/tvs.module').then(m => m.TVsModule)
+  }]
 }, {
   path: 'auth',
   component: AuthLayoutComponent,
@@ -15,12 +30,12 @@ const routes: Routes = [{
 }, {
   // Fallback when no prior routes is matched
   path: '**',
-  redirectTo: '/auth/login',
+  redirectTo: environment.routes.home,
   pathMatch: 'full'
 }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
