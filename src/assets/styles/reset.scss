@@ -15,3 +15,10 @@ body {
 .mat-card {
     border-radius: 0 !important;
 }
+
+.mat-button,
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+    text-transform: uppercase;
+}

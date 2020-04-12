@@ -1,15 +1,15 @@
-@import './styles/variables';
-@import './styles/reset';
+@import './assets/styles/variables';
+@import './assets/styles/reset';
 
 @import '~@angular/material/theming';
 
 @include mat-core();
 
-@import './styles/themes/light';
-@import './styles/themes/dark';
+@import './assets/styles/themes/light';
+@import './assets/styles/themes/dark';
 
 // Custom theme components
-@import './styles/reset.theme';
+@import './assets/styles/reset.theme';
 
 @mixin custom-components-theme($theme) {
     @include kiosk-reset-theme($theme);
