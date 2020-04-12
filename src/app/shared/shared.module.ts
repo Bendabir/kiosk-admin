@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 
@@ -9,11 +10,13 @@ import { MaterialModule } from './material.module';
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
 
     MaterialModule
   ]

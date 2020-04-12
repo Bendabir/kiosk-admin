@@ -1,0 +1,13 @@
+@import 'variables';
+
+@mixin screen($bp) {
+    @if map-has-key($breakpoints, $bp) {
+        @media (max-width: map-get($breakpoints, $bp)) {
+            @content;
+        }
+    } @else {
+        @media (max-width: map-get($breakpoints, xl)) {
+            @content;
+        }
+    }
+}

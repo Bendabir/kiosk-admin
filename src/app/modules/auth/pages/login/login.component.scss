@@ -1,0 +1,30 @@
+@import 'mixins';
+
+.login-card {
+    width: 25vw;
+}
+
+@include screen(xl) {
+    .login-card {
+        width: 33vw;
+    }
+}
+
+@include screen(sm) {
+    .login-card {
+        width: 80vw;
+    }
+}
+
+.mat-card-content, .mat-card-actions {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.mat-card-content p {
+    text-align: justify;
+}
+
+.mat-form-field {
+    width: 100%;
+}

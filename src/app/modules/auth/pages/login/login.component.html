@@ -1,1 +1,25 @@
-<p>login works!</p>
+<mat-card class="login-card">
+    <mat-card-header>
+        <mat-card-title>Kiosk</mat-card-title>
+        <mat-card-subtitle>Authentication required</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+        <p>
+            Please enter the API key provided by your administator.
+            If the API key security is not enabled, leave the field empty.
+        </p>
+        <form #loginForm="ngForm">
+            <mat-form-field>
+                <input matInput placeholder="API Key" [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide API key'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <div fxFlex></div>
+        <button mat-button (click)="loginForm.resetForm()">Clear</button>
+        <button mat-button color="accent">Log In</button>
+    </mat-card-actions>
+</mat-card>
