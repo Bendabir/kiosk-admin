@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CoreModule } from '@app/core.module';
 import { SharedModule } from '@shared/shared.module';
@@ -10,18 +9,17 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthLayoutComponent } from '@layout/auth-layout';
-import { MainLayoutComponent } from '@layout/main-layout/main-layout.component';
+import { AuthLayoutModule } from '@layout/auth-layout';
+import { MainLayoutModule } from '@layout/main-layout';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AuthLayoutComponent,
-    MainLayoutComponent
+    AppComponent
   ],
   imports: [
     // Angular
     BrowserModule,
+    BrowserAnimationsModule,
 
     // 3rd party
     AuthModule,
@@ -30,10 +28,12 @@ import { MainLayoutComponent } from '@layout/main-layout/main-layout.component';
     CoreModule,
     SharedModule,
 
+    // Layouts
+    AuthLayoutModule,
+    MainLayoutModule,
+
     // App
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
