@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
+import { SettingsService } from '@app/services';
 import { CoreModule } from '@app/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { AuthModule } from '@modules/auth/auth.module';
@@ -36,6 +38,30 @@ import { MainLayoutModule } from '@layout/main-layout';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  private classTheme: string = null;
+
+  constructor(
+    private overlayContainer: OverlayContainer,
+    private settingsService: SettingsService
+  ) {
+    this.classTheme = this.settingsService.getThemeClass();
+    const container = this.overlayContainer.getContainerElement();
+
+    container.classList.add('mat-typography');
+    container.classList.add(this.classTheme);
+
+    this.settingsService.getSettings().subscribe((settings) => {
+      container.classList.remove(this.classTheme);
+      this.classTheme = SettingsService.classFromTheme(settings.theme);
+      container.classList.add(this.classTheme);
+    });
+  }
+}
