@@ -1,3 +1,5 @@
+@import 'variables';
+
 * {
     &:active,
     :focus {
@@ -13,7 +15,7 @@ body {
 }
 
 .mat-card {
-    border-radius: 0 !important;
+    border-radius: $radius !important;
 }
 
 .mat-button,
@@ -21,4 +23,8 @@ body {
 .mat-stroked-button,
 .mat-flat-button {
     text-transform: uppercase;
+}
+
+.mat-dialog-container {
+    border-radius: $radius !important;
 }
