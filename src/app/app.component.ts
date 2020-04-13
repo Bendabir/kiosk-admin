@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '@app/services/theme.service';
+import { SettingsService } from '@app/services';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,13 @@ import { ThemeService } from '@app/services/theme.service';
 export class AppComponent implements OnInit {
   public themeClass: string = null;
 
-  constructor(private themeService: ThemeService) {
-    this.themeClass = this.themeService.getClass();
+  constructor(private settingsService: SettingsService) {
+    this.themeClass = this.settingsService.getThemeClass();
   }
 
   ngOnInit() {
-    this.themeService.getTheme().subscribe((theme) => {
-      this.themeClass = ThemeService.classFromTheme(theme);
+    this.settingsService.getSettings().subscribe((settings) => {
+      this.themeClass = SettingsService.classFromTheme(settings.theme);
     });
   }
 }
