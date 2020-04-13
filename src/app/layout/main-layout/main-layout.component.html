@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="header">
     <div>
-        <mat-icon class="toolbar-icon">menu</mat-icon>
+        <mat-icon class="toolbar-icon hamburger" (click)="sideNav.toggle()">menu</mat-icon>
     </div>
     <div class="title" [ngClass]="isSmallScreen() ? 'title-small-screen' : ''">Kiosk</div>
     <div>
@@ -10,4 +10,18 @@
     </div>
 </mat-toolbar>
 
-<p>main-layout works!</p>
+<mat-sidenav-container>
+    <mat-sidenav #sideNav [mode]="isSmallScreen() ? 'over' : 'side'" [(opened)]="sideNavOpened" [fixedInViewport]="true"
+    [fixedTopGap]>
+        <mat-nav-list>
+            <a *ngFor="let i of NAV_ITEMS" mat-list-item [routerLink]="i.link" routerLinkActive="active">
+                <mat-icon>{{ i.icon }}</mat-icon> {{ i.title }}
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <p>main-layout works!</p>
+        <!-- <router-outlet></router-outlet> -->
+    </mat-sidenav-content>
+</mat-sidenav-container>

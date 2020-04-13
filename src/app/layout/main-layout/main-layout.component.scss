@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .header {
     justify-content: space-between;
     position: sticky;
@@ -22,4 +24,42 @@
 
 .toolbar-icon:not(:last-child) {
     margin-right: 24px;
+}
+
+.mat-sidenav {
+    padding-top: 16px;
+    width: 250px;
+}
+
+.mat-nav-list .mat-list-item {
+    font-size: 15px;
+}
+
+.nav-tool-items {
+    display: inline-block;
+    margin-right: 13px;
+}
+
+.mat-sidenav .mat-icon {
+    margin-right: 12px;
+}
+
+@include screen(LG) {
+    .mat-sidenav {
+        width: 230px;
+    }
+
+    .mat-nav-list .mat-list-item {
+        font-size: 14px;
+    }
+}
+
+@include screen(MD) {
+    .nav-tool-items {
+        margin-right: 0;
+    }
+
+    .hamburger {
+        visibility: visible !important;
+    }
 }
