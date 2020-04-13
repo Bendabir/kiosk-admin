@@ -58,7 +58,7 @@ export class AppModule {
     container.classList.add('mat-typography');
     container.classList.add(this.classTheme);
 
-    this.settingsService.getSettings().subscribe((settings) => {
+    this.settingsService.getObservableSettings().subscribe((settings) => {
       container.classList.remove(this.classTheme);
       this.classTheme = SettingsService.classFromTheme(settings.theme);
       container.classList.add(this.classTheme);

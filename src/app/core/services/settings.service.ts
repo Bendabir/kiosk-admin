@@ -38,8 +38,12 @@ export class SettingsService {
     localStorage.setItem(SettingsService.LS_FIELD , JSON.stringify(settings));
   }
 
-  public getSettings(): Observable<Settings> {
+  public getObservableSettings(): Observable<Settings> {
     return this.settings;
+  }
+
+  public getSettings(): Settings {
+    return this.settings.value;
   }
 
   public getThemeClass(): string {

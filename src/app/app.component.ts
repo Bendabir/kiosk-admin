@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.settingsService.getSettings().subscribe((settings) => {
+    this.settingsService.getObservableSettings().subscribe((settings) => {
       this.themeClass = SettingsService.classFromTheme(settings.theme);
     });
   }
