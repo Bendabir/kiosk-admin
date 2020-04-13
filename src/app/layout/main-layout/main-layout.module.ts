@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '@shared/shared.module';
 
 import { MainLayoutComponent } from './main-layout.component';
+import { SettingsDialogComponent } from './dialogs/settings-dialog/settings-dialog.component';
 
 @NgModule({
   declarations: [
-    MainLayoutComponent
+    MainLayoutComponent,
+
+    // Parts
+
+    // Dialogs
+    SettingsDialogComponent
   ],
   imports: [
-    CommonModule,
-
     SharedModule
   ],
-  exports: [
-    CommonModule,
-
-    MainLayoutComponent
+  exports: [],
+  entryComponents: [
+    SettingsDialogComponent
   ]
 })
 export class MainLayoutModule { }

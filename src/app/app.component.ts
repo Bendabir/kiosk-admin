@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Settings } from '@app/models';
 import { SettingsService } from '@app/services';
 
 @Component({
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.settingsService.getObservableSettings().subscribe((settings) => {
-      this.themeClass = SettingsService.classFromTheme(settings.theme);
+      this.themeClass = Settings.themeClass(settings.theme);
     });
   }
 }

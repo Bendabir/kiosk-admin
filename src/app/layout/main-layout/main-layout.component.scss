@@ -1,0 +1,25 @@
+.header {
+    justify-content: space-between;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.title {
+    font-variant: small-caps;
+}
+
+.title-small-screen {
+    flex: auto;
+    margin-left: 32px;
+}
+
+.toolbar-icon {
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.toolbar-icon:not(:last-child) {
+    margin-right: 24px;
+}

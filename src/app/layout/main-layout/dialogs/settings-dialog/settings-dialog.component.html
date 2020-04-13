@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Settings</h1>
+<div mat-dialog-content>
+    <form #settingsForm="ngForm">
+        <h3>General</h3>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="50%">
+                <mat-label>Theme</mat-label>
+                <mat-select name="theme" [(ngModel)]="settings.theme">
+                    <mat-option *ngFor="let t of THEMES" [value]="t">{{ t | titlecase }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <mat-label>Locale</mat-label>
+                <mat-select name="locale" [(ngModel)]="settings.locale" disabled>
+                    <mat-option *ngFor="let l of LOCALES" [value]="l">{{ localeName(l) }}</mat-option>
+                </mat-select>
+                <mat-hint align="end">Currently not supported.</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <h3>Actions</h3>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Identification duration" name="identify-duration" [(ngModel)]="settings.identifyDuration" type="number" min="500" step="100">
+                <mat-hint align="end">In milliseconds.</mat-hint>
+            </mat-form-field>
+            <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Forward step" name="forward-duration" [(ngModel)]="settings.forwardDuration" type="number" min="100" step="100">
+                <mat-hint align="end">In milliseconds.</mat-hint>
+            </mat-form-field>
+            <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Rewind step" name="rewind-duration" [(ngModel)]="settings.rewindDuration" type="number" min="100" step="100">
+                <mat-hint align="end">In milliseconds.</mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="accent" [mat-dialog-close]="settings">Save</button>
+</div>

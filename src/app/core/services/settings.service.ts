@@ -18,13 +18,6 @@ export class SettingsService {
 
   private settings: BehaviorSubject<Settings>;
 
-  public static classFromTheme(theme: Theme): string {
-    switch (theme) {
-      case Theme.DARK: return 'kiosk-dark-theme';
-      default: return 'kiosk-light-theme';
-    }
-  }
-
   constructor() {
     const settings = localStorage.getItem(SettingsService.LS_FIELD);
 
@@ -47,6 +40,6 @@ export class SettingsService {
   }
 
   public getThemeClass(): string {
-    return SettingsService.classFromTheme(this.settings.value.theme);
+    return Settings.themeClass(this.settings.value.theme);
   }
 }
