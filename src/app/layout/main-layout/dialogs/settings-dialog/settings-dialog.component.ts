@@ -12,6 +12,7 @@ export class SettingsDialogComponent {
   public LOCALES = Object.values(Locale);
   public THEMES = Object.values(Theme);
   public settings: Settings = null;
+  public hideClientKey = true;
 
   constructor(
     public dialogRef: MatDialogRef<SettingsDialogComponent>,

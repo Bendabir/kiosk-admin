@@ -33,6 +33,17 @@
                 <mat-hint align="end">In milliseconds.</mat-hint>
             </mat-form-field>
         </div>
+
+        <h3>Information</h3>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="100%">
+                <input matInput placeholder="Client Key" value="secret" [type]="hideClientKey ? 'password' : 'text'" disabled>
+                <button mat-icon-button matSuffix (click)="hideClientKey = !hideClientKey" [attr.aria-label]="'Hide Client key'" [attr.aria-pressed]="hideClientKey">
+                    <mat-icon>{{hideClientKey ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-hint align="end">Authentication key for screens.</mat-hint>
+            </mat-form-field>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions align="end">
