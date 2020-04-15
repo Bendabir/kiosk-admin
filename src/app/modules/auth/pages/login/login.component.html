@@ -17,7 +17,10 @@
             </mat-form-field>
         </form>
     </mat-card-content>
-    <mat-card-actions align="end">
+    <mat-card-actions>
+        <button mat-icon-button>
+            <mat-icon>settings</mat-icon>
+        </button>
         <div fxFlex></div>
         <button mat-button color="accent" (click)="login(apiKey.value)" (keyup.enter)="login(apiKey.value)">Log In</button>
     </mat-card-actions>

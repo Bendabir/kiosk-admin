@@ -16,9 +16,8 @@
     }
 }
 
-.mat-card-content, .mat-card-actions {
-    margin-left: 16px;
-    margin-right: 16px;
+::ng-deep .mat-card-header-text {
+    margin-left: 0 !important;
 }
 
 .mat-card-content p {
@@ -27,8 +26,4 @@
 
 .mat-form-field {
     width: 100%;
-}
-
-.mat-button:last-child {
-    margin-right: 0;
 }
