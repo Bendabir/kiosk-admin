@@ -10,7 +10,7 @@
     </div>
 </mat-toolbar>
 
-<mat-sidenav-container>
+<mat-sidenav-container fullscreen>
     <mat-sidenav #sideNav [mode]="isSmallScreen() ? 'over' : 'side'" [(opened)]="sideNavOpened" [fixedInViewport]="true"
     [fixedTopGap]>
         <mat-nav-list>
@@ -34,7 +34,7 @@
             </div>
         </mat-toolbar>
 
-        <section class="page-content">
+        <section class="page-content" [@adjustContentHeight]="actionsToolbarExpanded ? 'expanded' : 'collapsed'">
             <router-outlet></router-outlet>
         </section>
     </mat-sidenav-content>

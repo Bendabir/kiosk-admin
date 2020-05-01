@@ -9,6 +9,9 @@ import { Breakpoint } from '@app/models';
 
 import { SettingsDialogComponent } from './dialogs';
 
+const ACTIONS_TOOLBAR_HEIGHT = '48px';
+const TRANSITION = transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'));
+
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
@@ -21,10 +24,19 @@ import { SettingsDialogComponent } from './dialogs';
         borderBottom: 'none'
       })),
       state('expanded', style({
-        height: '48px'
+        height: ACTIONS_TOOLBAR_HEIGHT
       })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      TRANSITION
     ]),
+    trigger('adjustContentHeight', [
+      state('collapsed', style({
+        height: '100%'
+      })),
+      state('expanded', style({
+        height: `calc(100% - ${ACTIONS_TOOLBAR_HEIGHT})`
+      })),
+      TRANSITION
+    ])
   ]
 })
 export class MainLayoutComponent implements OnInit {

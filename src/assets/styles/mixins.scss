@@ -6,7 +6,7 @@
             @content;
         }
     } @else {
-        @media (max-width: map-get($breakpoints, xl)) {
+        @media (max-width: $bp) {
             @content;
         }
     }

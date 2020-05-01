@@ -4,13 +4,13 @@
     width: 25vw;
 }
 
-@include screen(xl) {
+@include screen(md) {
     .login-card {
         width: 33vw;
     }
 }
 
-@include screen(sm) {
+@include screen(xs) {
     .login-card {
         width: 80vw;
     }
