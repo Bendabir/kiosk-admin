@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TVsComponent } from './pages/tvs/tvs.component';
+import { TVsPageComponent } from './pages/tvs-page/tvs-page.component';
 
 const routes: Routes = [{
   path: '',
-  component: TVsComponent
+  component: TVsPageComponent
 }];
 
 @NgModule({

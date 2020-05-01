@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 
 import { TVsRoutingModule } from './tvs-routing.module';
-import { TVsComponent } from './pages/tvs/tvs.component';
+import { TVsPageComponent } from './pages/tvs-page/tvs-page.component';
 
 
 @NgModule({
   declarations: [
-    TVsComponent
+    TVsPageComponent
   ],
   imports: [
     CommonModule,
