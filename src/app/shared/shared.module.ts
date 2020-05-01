@@ -5,10 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
+import { DurationPipe, OrNAPipe } from './pipes';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    DurationPipe,
+    OrNAPipe
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,7 +24,10 @@ import { MaterialModule } from './material.module';
     FormsModule,
 
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+
+    DurationPipe,
+    OrNAPipe
   ]
 })
 export class SharedModule { }
