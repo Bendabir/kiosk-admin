@@ -77,3 +77,9 @@
     height: 32px;
     margin-top: 4px;
 }
+
+.page-content {
+    // Hack to make the section full height
+    // There might be a cleaner way to do it
+    height: calc(100vh - 64px - 48px);
+}
