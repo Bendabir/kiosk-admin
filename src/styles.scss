@@ -11,9 +11,11 @@
 
 // Custom theme components
 @import 'reset.theme';
+@import 'app/layout/main-layout/main-layout.component.theme.scss';
 
 @mixin custom-components-theme($theme) {
     @include kiosk-reset-theme($theme);
+    @include main-layout-component-theme($theme);
 }
 
 .kiosk-light-theme {

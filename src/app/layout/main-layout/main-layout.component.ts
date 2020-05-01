@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { environment } from '@env';
 import { AuthService, SettingsService } from '@app/services';
@@ -11,13 +12,27 @@ import { SettingsDialogComponent } from './dialogs';
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss']
+  styleUrls: ['./main-layout.component.scss'],
+  animations: [
+    trigger('expandActionsToolbar', [
+      state('collapsed', style({
+        height: '0',
+        minHeight: '0',
+        borderBottom: 'none'
+      })),
+      state('expanded', style({
+        height: '48px'
+      })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class MainLayoutComponent implements OnInit {
   public sideNavOpened = true;
   @ViewChild('sideNav', {
     static: true
   }) public sideNav: MatSidenav;
+  public actionsToolbarExpanded = true;
 
   public NAV_ITEMS: any[] = [{
     link: '/home/tvs',
@@ -90,4 +105,13 @@ export class MainLayoutComponent implements OnInit {
 
     return width <= Breakpoint.MD;
   }
+
+  toggleActionsToolbar() {
+    this.actionsToolbarExpanded = !this.actionsToolbarExpanded;
+  }
+
+  actionsToolbarStatus() {
+    return this.actionsToolbarExpanded ? 'expanded' : 'collapsed';
+  }
+
 }

@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+// Customize the style (according to the theme)
+// for our actions toolbar
+@mixin main-layout-component-theme($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    .actions-toolbar {
+        background-color: mat-color($background, dialog);
+        border-bottom: solid 1px mat-color($foreground, divider);
+    }
+}

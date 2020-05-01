@@ -63,3 +63,17 @@
         visibility: visible !important;
     }
 }
+
+.actions-toolbar {
+    height: 48px;
+    overflow: hidden;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.actions-toolbar mat-divider {
+    height: 32px;
+    margin-top: 4px;
+}

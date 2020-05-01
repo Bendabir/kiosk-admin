@@ -4,7 +4,7 @@
     </div>
     <div class="title" [ngClass]="isSmallScreen() ? 'title-small-screen' : ''">Kiosk</div>
     <div>
-        <mat-icon class="toolbar-icon" matTooltip="Show toolbar">expand_more</mat-icon>
+        <mat-icon class="toolbar-icon" [matTooltip]="actionsToolbarExpanded ? 'Hide actions' : 'Show actions'" (click)="toggleActionsToolbar()">{{ actionsToolbarExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
         <mat-icon class="toolbar-icon" matTooltip="Log out" (click)="logout()">exit_to_app</mat-icon>
         <mat-icon class="toolbar-icon" matTooltip="Settings" (click)="openSettings()">settings</mat-icon>
     </div>
@@ -21,6 +21,19 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
+        <mat-toolbar class="actions-toolbar" [@expandActionsToolbar]="actionsToolbarExpanded ? 'expanded' : 'collapsed'">
+            <div fxLayoutAlign="start stretch" fxLayoutGap="16px">
+                <!-- TODO : Load dynamically from service -->
+                <button mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+                <mat-divider vertical="true"></mat-divider>
+                <button mat-icon-button disabled>
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+
         <p>main-layout works!</p>
         <!-- <router-outlet></router-outlet> -->
     </mat-sidenav-content>
