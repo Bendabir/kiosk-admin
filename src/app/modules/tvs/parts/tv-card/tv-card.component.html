@@ -5,7 +5,7 @@
         <div fxFlex></div>
         <mat-icon [matTooltip]="(tv.on) ? 'Running' : 'Down'" matTooltipPosition="left" [ngClass]="(tv.on) ? 'running-status' : 'down-status'">{{ (tv.on) ? 'cast_connected' : 'cast' }}</mat-icon>
     </mat-card-header>
-    <img mat-card-image src="assets/img/no_thumbnail.png">
+    <img mat-card-image [src]="tv.thumbnail()">
     <mat-card-content>
         <div class="details" fxLayout="row" fxLayoutAlign="space-between center">
             <span class="info" matTooltip="IP">{{ tv.ip | orNA }}</span>

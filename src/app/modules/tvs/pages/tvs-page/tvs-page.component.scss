@@ -7,13 +7,23 @@
     padding-right: 0;
 }
 
+.tv-card {
+    height: 550px;
+    margin-bottom: $gutter;
+}
+
+@include screen(md) {
+    .tv-card {
+        height: 500px;
+    }
+}
+
 @include screen(xs) {
     .content {
         padding-right: $gutter;
     }
-}
 
-.tv-card {
-    height: 400px;
-    margin-bottom: $gutter;
+    .tv-card {
+        height: 100%;
+    }
 }

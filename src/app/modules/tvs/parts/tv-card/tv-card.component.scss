@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import 'mixins';
 
 .mat-card {
     display:flex;
@@ -24,6 +25,12 @@
     max-height: 100%;
 }
 
+@include screen(xs) {
+    .mat-card-content p {
+        max-height: 75px;
+    }
+}
+
 .mat-card-content div.details {
     margin-bottom: 16px;
 }
@@ -47,5 +54,7 @@
 }
 
 img {
-    height: 39%;
+    // Couldn't find a way to keep the 16:9 ratio
+    // as the card size is dynamic
+    height: 45%;
 }

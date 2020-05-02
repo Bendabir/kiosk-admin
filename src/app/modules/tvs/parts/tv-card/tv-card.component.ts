@@ -10,7 +10,17 @@ import { TV } from '@data/schemas/tv';
 export class TvCardComponent implements OnInit {
   static NON_BREAKING_SPACE = '\u00A0';
 
-  @Input() tv: TV;
+  private _tv: TV;
+
+  get tv(): TV {
+    return this._tv;
+  }
+
+  @Input()
+  set tv(tv: TV) {
+    // Create a proper object from the data to insure we have the methods
+    this._tv = Object.assign(new TV(), tv);
+  }
 
   constructor() { }
 

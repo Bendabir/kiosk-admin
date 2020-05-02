@@ -2,8 +2,8 @@ import { Content } from './content';
 import { Group } from './group';
 
 export class TV {
-    static NO_CONTENT_PATH = 'assets/img/no_content.png';
-    static NO_THUMBNAIL_PATH = 'assets/img/no_thumbnail.png';
+    static NO_CONTENT_PATH = 'assets/img/noise.jpeg';
+    static NO_THUMBNAIL_PATH = 'assets/img/no_thumbnail.jpeg';
 
     id: string;
     displayName: string;
