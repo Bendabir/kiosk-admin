@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@app/guards/auth.guard';
-import { AuthLayoutComponent } from '@layout/auth-layout';
-import { MainLayoutComponent } from '@layout/main-layout';
+import { AuthGuard } from '@app/guards';
+import { AuthLayoutComponent, MainLayoutComponent } from '@layout';
 import { environment } from '@env';
 
 
@@ -14,7 +13,9 @@ const routes: Routes = [{
 }, {
   path: 'home',
   component: MainLayoutComponent,
-  canActivate: [AuthGuard],
+  canActivate: [
+    AuthGuard
+  ],
   children: [{
     path: '',
     redirectTo: environment.routes.home,
@@ -35,7 +36,11 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }

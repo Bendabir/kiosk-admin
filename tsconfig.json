@@ -20,11 +20,16 @@
     ],
     "paths": {
       "@app/*": ["app/core/*"],
+      "@app": ["app/core"],
       "@data/*": ["app/data/*"],
+      "@data": ["app/data"],
       "@env": ["environments/environment"],
       "@layout/*": ["app/layout/*"],
+      "@layout": ["app/layout"],
       "@modules/*": ["app/modules/*"],
-      "@shared/*": ["app/shared/*"]
+      "@modules": ["app/modules"],
+      "@shared/*": ["app/shared/*"],
+      "@shared": ["app/shared"]
     }
   },
   "angularCompilerOptions": {

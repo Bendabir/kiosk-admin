@@ -3,17 +3,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
+import { CoreModule } from '@app';
 import { Settings } from '@app/models';
 import { SettingsService } from '@app/services';
-import { CoreModule } from '@app/core.module';
-import { SharedModule } from '@shared/shared.module';
-import { AuthModule } from '@modules/auth/auth.module';
+import { AuthLayoutModule, MainLayoutModule } from '@layout';
+import { AuthModule } from '@modules/auth';
+import { SharedModule } from '@shared';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthLayoutModule } from '@layout/auth-layout';
-import { MainLayoutModule } from '@layout/main-layout';
 
 @NgModule({
   declarations: [

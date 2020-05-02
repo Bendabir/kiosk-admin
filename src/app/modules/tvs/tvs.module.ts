@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 
 import { TVsRoutingModule } from './tvs-routing.module';
-import { TVsPageComponent } from './pages/tvs-page/tvs-page.component';
-import { TvCardComponent } from './parts/tv-card/tv-card.component';
+import { TVsPageComponent } from './pages';
+import { TVCardComponent } from './parts';
 
 
 @NgModule({
   declarations: [
     TVsPageComponent,
-    TvCardComponent
+    TVCardComponent
   ],
   imports: [
     CommonModule,

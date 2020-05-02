@@ -7,7 +7,7 @@ import { TV } from '@data/schemas/tv';
   templateUrl: './tv-card.component.html',
   styleUrls: ['./tv-card.component.scss']
 })
-export class TvCardComponent implements OnInit {
+export class TVCardComponent implements OnInit {
   static NON_BREAKING_SPACE = '\u00A0';
 
   private _tv: TV;
@@ -29,11 +29,11 @@ export class TvCardComponent implements OnInit {
 
   get group(): string {
     if (this.tv.group === null || typeof this.tv.group === 'string') {
-      return TvCardComponent.NON_BREAKING_SPACE;
+      return TVCardComponent.NON_BREAKING_SPACE;
     } else if (this.tv.group.displayName) {
       return this.tv.group.displayName;
     } else {
-      return TvCardComponent.NON_BREAKING_SPACE;
+      return TVCardComponent.NON_BREAKING_SPACE;
     }
   }
 
