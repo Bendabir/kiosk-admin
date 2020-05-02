@@ -1,0 +1,19 @@
+@import 'variables';
+@import 'mixins';
+
+.content {
+    padding-top: $gutter;
+    padding-left: $gutter;
+    padding-right: 0;
+}
+
+@include screen(xs) {
+    .content {
+        padding-right: $gutter;
+    }
+}
+
+.tv-card {
+    height: 400px;
+    margin-bottom: $gutter;
+}

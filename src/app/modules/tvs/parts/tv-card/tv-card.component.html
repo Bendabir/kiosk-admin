@@ -1,0 +1,38 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ tv.displayName }}</mat-card-title>
+        <mat-card-subtitle>{{ group }}</mat-card-subtitle>
+        <div fxFlex></div>
+        <mat-icon [matTooltip]="(tv.on) ? 'Running' : 'Down'" matTooltipPosition="left" [ngClass]="(tv.on) ? 'running-status' : 'down-status'">{{ (tv.on) ? 'cast_connected' : 'cast' }}</mat-icon>
+    </mat-card-header>
+    <img mat-card-image src="assets/img/no_thumbnail.png">
+    <mat-card-content>
+        <div class="details" fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="info" matTooltip="IP">{{ tv.ip | orNA }}</span>
+            <span class="dash">&ndash;</span>
+            <span class="info" matTooltip="Resolution">{{ tv.screenSize | orNA }}</span>
+            <span class="dash">&ndash;</span>
+            <span class="info" matTooltip="Version">{{ tv.version | orNA }}</span>
+            <span class="dash">&ndash;</span>
+            <span class="info" matTooltip="Machine">{{ tv.machine | orNA }}</span>
+        </div>
+        <p *ngIf="tv.description">{{ tv.description }}</p>
+        <i *ngIf="!tv.description">No description.</i>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-slide-toggle [checked]="tv.active" [matTooltip]="tv.active ? 'Disable' : 'Enable'" matTooltipPosition="above"></mat-slide-toggle>
+        <div fxFlex></div>
+        <button mat-icon-button matTooltip="Edit" matTooltipPosition="above" (click)="edit()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Reload" matTooltipPosition="above" [disabled]="!tv.on" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Identify" matTooltipPosition="above" [disabled]="!tv.on" (click)="identify()">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Delete" matTooltipPosition="above" color="warn" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

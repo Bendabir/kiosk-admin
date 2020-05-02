@@ -5,11 +5,13 @@ import { SharedModule } from '@shared/shared.module';
 
 import { TVsRoutingModule } from './tvs-routing.module';
 import { TVsPageComponent } from './pages/tvs-page/tvs-page.component';
+import { TvCardComponent } from './parts/tv-card/tv-card.component';
 
 
 @NgModule({
   declarations: [
-    TVsPageComponent
+    TVsPageComponent,
+    TvCardComponent
   ],
   imports: [
     CommonModule,
