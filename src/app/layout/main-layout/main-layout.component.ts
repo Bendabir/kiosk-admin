@@ -115,7 +115,7 @@ export class MainLayoutComponent implements OnInit {
       width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     }
 
-    return width <= Breakpoint.MD;
+    return width <= Breakpoint.SM;
   }
 
   toggleActionsToolbar() {

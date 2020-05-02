@@ -1,7 +1,7 @@
 export enum Breakpoint {
-    XS = 0,
-    SM = 576,
-    MD = 768,
-    LG = 992,
-    XL = 1200
+    XS = 600,
+    SM = 960,
+    MD = 1280,
+    LG = 1920,
+    XL = 5000
 }
