@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { APIService, AuthService, SettingsService } from './services';
+import { APIService, AuthService, SettingsService, SnackBarService } from './services';
 import { APIKeyInterceptor } from './interceptors';
 
 @NgModule({
@@ -15,6 +15,7 @@ import { APIKeyInterceptor } from './interceptors';
     APIService,
     AuthService,
     SettingsService,
+    SnackBarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIKeyInterceptor,
