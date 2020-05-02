@@ -1,9 +1,13 @@
-<div class="content" *ngIf="tvs.length; else noItem">
-    <div  fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="24px">
-        <app-tv-card *ngFor="let t of tvs"  class="tv-card" [tv]="t" fxFlex.sm="0 1 calc(50%-24px)" fxFlex.md="0 1 calc(50%-24px)" fxFlex.lg="0 1 calc(33.33%-24px)" fxFlex.xl="0 1 calc(25%-24px)"></app-tv-card>
+<ng-container *ngIf="tvs$ | async as tvs; else loadingOrError">
+    <app-splash *ngIf="!tvs.length" [splash]="noTVSplash"></app-splash>
+    <div *ngIf="tvs.length" class="content">
+        <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="24px">
+            <app-tv-card *ngFor="let t of tvs" class="tv-card" [tv]="t" fxFlex.sm="0 1 calc(50%-24px)" fxFlex.md="0 1 calc(50%-24px)" fxFlex.lg="0 1 calc(33.33%-24px)" fxFlex.xl="0 1 calc(25%-24px)"></app-tv-card>
+        </div>
     </div>
-</div>
+</ng-container>
 
-<ng-template #noItem>
-    <app-splash [splash]="splash"></app-splash>
+<ng-template #loadingOrError>
+    <app-splash *ngIf="errorSplash" [splash]="errorSplash"></app-splash>
+    <app-loader *ngIf="!errorSplash"></app-loader>
 </ng-template>

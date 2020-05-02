@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-import { TV } from '@data/schemas/tv';
+import { TV } from '@data/schemas';
+import { TVsService } from '@data/services';
 import { Splash } from '@shared/models';
-import { tvs } from '@data/mocks';
 
 @Component({
   selector: 'app-tvs-page',
@@ -10,9 +12,7 @@ import { tvs } from '@data/mocks';
   styleUrls: ['./tvs-page.component.scss']
 })
 export class TVsPageComponent implements OnInit {
-  // tvs: TV[] = tvs;
-  tvs: TV[] = [];
-  splash: Splash = {
+  noTVSplash: Splash = {
     icon: 'tv',
     title: 'No TV',
     message: 'Declare a TV and it will show up here.',
@@ -21,10 +21,30 @@ export class TVsPageComponent implements OnInit {
       title: 'Declare TV'
     }
   };
+  errorSplash: Splash;
+  tvs$: Observable<TV[]>;
 
-  constructor() { }
+  constructor(
+    private tvsService: TVsService
+  ) { }
 
   ngOnInit() {
+    this.reload();
+  }
+
+  reload() {
+    this.errorSplash = null;
+    this.tvs$ = this.tvsService.getAll().pipe(
+      catchError(err => {
+        const message = this.tvsService.extractMessage(err);
+        this.errorSplash = Splash.errorSplash(message, {
+          action: this.reload.bind(this),
+          title: 'Retry'
+        });
+
+        return throwError(err);
+      })
+    );
   }
 
   create() {

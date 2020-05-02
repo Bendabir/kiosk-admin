@@ -14,16 +14,20 @@ export class APIService {
     protected http: HttpClient
   ) { }
 
-  protected handleError(err: any) {
-    let message = '';
-
+  public extractMessage(err: any) {
     if (err instanceof ErrorEvent) {
-      message = err.error.message;
+      return err.error.message;
+    } else if (err.status === 0) {
+      return 'Server appear to be unreachable. Please check your connection.';
     } else if (err instanceof HttpErrorResponse && 'error' in err.error) {
-        message =  err.error.error.message;
+      return err.error.error.message;
     } else {
-      message = err.message;
+      return err.message;
     }
+  }
+
+  protected handleError(err: any) {
+    const message = this.extractMessage(err);
 
     // TODO : Handle with snacks or whatever
     console.error(message);
