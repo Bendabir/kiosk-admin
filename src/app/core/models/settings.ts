@@ -9,6 +9,14 @@ export enum Locale {
 }
 
 export class Settings {
+    static DEFAULT: Settings = {
+        theme: Theme.LIGHT,
+        locale: Locale.en_US,
+        identifyDuration: 5000,
+        forwardDuration: 5000,
+        rewindDuration: 5000
+    };
+
     theme: Theme;
     locale: Locale;
     identifyDuration: number;

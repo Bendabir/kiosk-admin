@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Locale, Settings, Theme } from '../models';
+import { Settings } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
   static LS_FIELD = 'settings';
-  static DEFAULT_SETTINGS: Settings = {
-    theme: Theme.LIGHT,
-    locale: Locale.en_US,
-    identifyDuration: 5000,
-    forwardDuration: 5000,
-    rewindDuration: 5000
-  };
 
   private settings: BehaviorSubject<Settings>;
 
@@ -22,7 +15,7 @@ export class SettingsService {
     const settings = localStorage.getItem(SettingsService.LS_FIELD);
 
     this.settings = new BehaviorSubject<Settings>(
-      settings !== null ? JSON.parse(settings) : SettingsService.DEFAULT_SETTINGS
+      settings !== null ? JSON.parse(settings) : Settings.DEFAULT
     );
   }
 
