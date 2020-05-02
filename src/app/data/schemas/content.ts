@@ -18,4 +18,16 @@ export class Content {
     mimeType: string | null;
     createdAt: Date;
     updatedAt: Date;
+
+    static prettifyType(type: ContentType): string {
+        switch (type) {
+            case ContentType.IMAGE: return 'Image';
+            case ContentType.PLAYLIST: return 'Playlist';
+            case ContentType.TEXT: return 'Text';
+            case ContentType.VIDEO: return 'Video';
+            case ContentType.WEBPAGE: return 'Web Page';
+            case ContentType.YOUTUBE: return 'YouTube';
+            default: return 'Unknown';
+        }
+    }
 }

@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>{{ title }} <i>{{ titleAccent }}</i></h1>
+<div mat-dialog-content>{{ message }}</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [color]="button.color" [mat-dialog-close]="true">{{ button.title }}</button>
+</div>

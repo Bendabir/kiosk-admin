@@ -5,8 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
-import { DurationPipe, OrNAPipe } from './pipes';
 import { LoaderComponent, SplashComponent } from './components';
+import { ConfirmationDialogComponent } from './dialogs';
+import { DurationPipe, OrNAPipe } from './pipes';
 
 
 @NgModule({
@@ -14,8 +15,12 @@ import { LoaderComponent, SplashComponent } from './components';
     DurationPipe,
     OrNAPipe,
 
+    // Misc components
     SplashComponent,
-    LoaderComponent
+    LoaderComponent,
+
+    // Dialogs
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +41,12 @@ import { LoaderComponent, SplashComponent } from './components';
     OrNAPipe,
 
     LoaderComponent,
-    SplashComponent
+    SplashComponent,
+
+    ConfirmationDialogComponent
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }

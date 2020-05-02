@@ -20,7 +20,7 @@
         <i *ngIf="!tv.description">No description.</i>
     </mat-card-content>
     <mat-card-actions>
-        <mat-slide-toggle [checked]="tv.active" [matTooltip]="tv.active ? 'Disable' : 'Enable'" matTooltipPosition="above"></mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="tv.active" name="active" [matTooltip]="tv.active ? 'Disable' : 'Enable'" matTooltipPosition="above" (change)="toggleActive()"></mat-slide-toggle>
         <div fxFlex></div>
         <button mat-icon-button matTooltip="Edit" matTooltipPosition="above" (click)="edit()">
             <mat-icon>edit</mat-icon>

@@ -18,7 +18,7 @@ export class APIService {
     if (err instanceof ErrorEvent) {
       return err.error.message;
     } else if (err.status === 0) {
-      return 'Server appear to be unreachable. Please check your connection.';
+      return 'Server appears to be unreachable. Please check your connection.';
     } else if (err instanceof HttpErrorResponse && 'error' in err.error) {
       return err.error.error.message;
     } else {

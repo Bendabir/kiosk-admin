@@ -15,8 +15,8 @@ export class SettingsDialogComponent {
   public hideClientKey = true;
 
   constructor(
-    public dialogRef: MatDialogRef<SettingsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private dialogRef: MatDialogRef<SettingsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: any
   ) {
     this.settings = data.settings;
   }

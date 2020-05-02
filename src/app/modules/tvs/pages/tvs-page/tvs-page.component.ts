@@ -34,7 +34,7 @@ export class TVsPageComponent implements OnInit {
 
   reload() {
     this.errorSplash = null;
-    this.tvs$ = this.tvsService.getAll().pipe(
+    this.tvs$ = this.tvsService.getAll(true).pipe(
       catchError(err => {
         const message = this.tvsService.extractMessage(err);
         this.errorSplash = Splash.errorSplash(message, {

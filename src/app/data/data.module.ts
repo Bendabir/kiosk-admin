@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TVsService } from './services';
+import { ContentsService, GroupsService, TVsService } from './services';
 
 @NgModule({
   declarations: [],
@@ -9,6 +9,8 @@ import { TVsService } from './services';
     CommonModule
   ],
   providers: [
+    ContentsService,
+    GroupsService,
     TVsService
   ]
 })

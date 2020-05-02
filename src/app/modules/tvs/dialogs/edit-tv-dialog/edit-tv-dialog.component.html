@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Edit TV <i>{{ tv.displayName }}</i></h1>
+<div mat-dialog-content>
+    <form #editForm="ngForm">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="33.33%">
+                <input matInput #displayName maxLength="64" placeholder="Display name" [(ngModel)]="tv.displayName" name="display-name"/>
+                <mat-hint align="end">{{ displayName.value.length }} / 64</mat-hint>
+            </mat-form-field>
+            <mat-form-field fxFlex="33.33%">
+                <mat-label>Group</mat-label>
+                <mat-select [(ngModel)]="tv.group" name="group">
+                    <mat-option [value]="null">None</mat-option>
+                    <mat-option *ngFor="let g of (groups$ | async)" [value]="g.id">{{ g.displayName }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="33.33%">
+                <mat-label>Content</mat-label>
+                <mat-select [(ngModel)]="tv.content" name="content">
+                    <mat-option [value]="null">None</mat-option>
+                    <mat-optgroup *ngFor="let entry of (contentsByType$ | async) | keyvalue" [label]="prettifyContentType(entry.key)">
+                        <mat-option *ngFor="let c of entry.value" [value]="c.id">{{ c.displayName }}</mat-option>
+                        <mat-option *ngIf="!entry.value.length" disabled>No content</mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="100%">
+                <textarea matInput class="description" placeholder="Description" rows="4" [(ngModel)]="tv.description" name="description"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="50%">
+                <input [(ngModel)]="tv.volume100" name="volume" matInput placeholder="Volume" type="number" min="0" max="100" step="1" class="align-right">
+                <span matSuffix>%</span>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <input [(ngModel)]="tv.brightness100" name="brightness" matInput placeholder="Brightness" type="number" min="0" max="100" step="1" class="align-right">
+                <span matSuffix>%</span>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-checkbox fxFlex="33.33%" [(ngModel)]="tv.muted" name="muted" labelPosition="before" class="kiosk-checkbox">Mute</mat-checkbox>
+            <mat-checkbox fxFlex="33.33%" [(ngModel)]="tv.showTitle" name="show-title" labelPosition="before" class="kiosk-checkbox">Show title</mat-checkbox>
+            <mat-checkbox fxFlex="33.33%" [(ngModel)]="tv.active" name="active" labelPosition="before" class="kiosk-checkbox">Active</mat-checkbox>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="accent" [mat-dialog-close]="tv" [disabled]="editForm.invalid">Edit</button>
+</div>

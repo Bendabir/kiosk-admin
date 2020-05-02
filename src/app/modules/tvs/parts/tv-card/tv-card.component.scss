@@ -58,3 +58,7 @@ img {
     // as the card size is dynamic
     height: 45%;
 }
+
+:host(.deleted) {
+    display: none;
+}

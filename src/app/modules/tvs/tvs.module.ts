@@ -6,12 +6,19 @@ import { SharedModule } from '@shared/shared.module';
 import { TVsRoutingModule } from './tvs-routing.module';
 import { TVsPageComponent } from './pages';
 import { TVCardComponent } from './parts';
+import { EditTVDialogComponent } from './dialogs';
 
 
 @NgModule({
   declarations: [
+    // Pages
     TVsPageComponent,
-    TVCardComponent
+
+    // Parts
+    TVCardComponent,
+
+    // Dialogs
+    EditTVDialogComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +28,8 @@ import { TVCardComponent } from './parts';
   ],
   exports: [],
   providers: [],
-  entryComponents: []
+  entryComponents: [
+    EditTVDialogComponent
+  ]
 })
 export class TVsModule { }

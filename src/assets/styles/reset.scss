@@ -1,8 +1,7 @@
 @import 'variables';
 
 * {
-    &:active,
-    :focus {
+    &:active, :focus {
       outline: none !important;
     }
 }
