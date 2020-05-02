@@ -1,0 +1,12 @@
+<div class="splash-wrapper">
+    <div class="splash-content">
+        <mat-icon class="splash-icon">{{ splash.icon }}</mat-icon>
+        <h3>{{ splash.title }}</h3>
+        <p>{{ splash.message }}</p>
+        <br *ngIf="splash.button" />
+        <button *ngIf="splash.button" mat-button color="accent" (click)="splash.button.action()">
+            {{ splash.button.title }}
+        </button>
+    </div>
+</div>
+

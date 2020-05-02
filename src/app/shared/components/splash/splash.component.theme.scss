@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+
+// Customize the style (according to the theme)
+@mixin splash-component-theme($theme) {
+    $background: map-get($theme, background);
+
+    .splash-icon {
+        color: mat-color($background, disabled-button);
+    }
+}

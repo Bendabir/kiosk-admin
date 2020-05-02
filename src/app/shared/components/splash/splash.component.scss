@@ -1,0 +1,18 @@
+@import 'variables';
+
+.splash-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.splash-icon {
+    $scale-ratio: 10;
+
+    height: calc(#{$scale-ratio} * #{$mat-icon-size});
+    font-size: calc(#{$scale-ratio} * #{$mat-icon-size});
+    width: calc(#{$scale-ratio} * #{$mat-icon-size});
+}
+

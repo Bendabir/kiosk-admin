@@ -1,5 +1,9 @@
-<div class="content">
+<div class="content" *ngIf="tvs.length; else noItem">
     <div  fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="24px">
         <app-tv-card *ngFor="let t of tvs"  class="tv-card" [tv]="t" fxFlex.sm="0 1 calc(50%-24px)" fxFlex.md="0 1 calc(50%-24px)" fxFlex.lg="0 1 calc(33.33%-24px)" fxFlex.xl="0 1 calc(25%-24px)"></app-tv-card>
     </div>
 </div>
+
+<ng-template #noItem>
+    <app-splash [splash]="splash"></app-splash>
+</ng-template>

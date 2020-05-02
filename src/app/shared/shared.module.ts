@@ -6,17 +6,22 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
 import { DurationPipe, OrNAPipe } from './pipes';
+import { SplashComponent } from './components';
 
 
 @NgModule({
   declarations: [
     DurationPipe,
-    OrNAPipe
+    OrNAPipe,
+
+    SplashComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+
+    MaterialModule
   ],
   exports: [
     CommonModule,
@@ -27,7 +32,9 @@ import { DurationPipe, OrNAPipe } from './pipes';
     FlexLayoutModule,
 
     DurationPipe,
-    OrNAPipe
+    OrNAPipe,
+
+    SplashComponent
   ]
 })
 export class SharedModule { }
