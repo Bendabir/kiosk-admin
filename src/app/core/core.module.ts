@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { APIService, AuthService, SettingsService } from './services';
+import { APIKeyInterceptor } from './interceptors';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,12 @@ import { APIService, AuthService, SettingsService } from './services';
   providers: [
     APIService,
     AuthService,
-    SettingsService
+    SettingsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIKeyInterceptor,
+      multi: true
+    }
   ]
 })
 export class CoreModule { }
