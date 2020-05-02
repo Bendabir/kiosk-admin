@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
 import { DurationPipe, OrNAPipe } from './pipes';
-import { SplashComponent } from './components';
+import { LoaderComponent, SplashComponent } from './components';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { SplashComponent } from './components';
     DurationPipe,
     OrNAPipe,
 
-    SplashComponent
+    SplashComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +35,7 @@ import { SplashComponent } from './components';
     DurationPipe,
     OrNAPipe,
 
+    LoaderComponent,
     SplashComponent
   ]
 })
