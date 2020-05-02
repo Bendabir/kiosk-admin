@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+
+import { environment as env } from '@env';
+
+/** Define a base service to be extended for the API.
+ */
+@Injectable({
+  providedIn: 'root'
+})
+export class APIService {
+  protected baseRoute = `http://${env.server.host}:${env.server.port}/${env.server.routes.api}`;
+
+  constructor(
+    protected http: HttpClient
+  ) { }
+
+  protected handleError(err: any) {
+    let message = '';
+
+    if (err instanceof ErrorEvent) {
+      message = err.error.message;
+    } else if (err instanceof HttpErrorResponse && 'error' in err.error) {
+        message =  err.error.error.message;
+    } else {
+      message = err.message;
+    }
+
+    // TODO : Handle with snacks or whatever
+    console.error(message);
+
+    return throwError(message);
+  }
+}
