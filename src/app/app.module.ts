@@ -6,6 +6,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { CoreModule } from '@app';
 import { Settings } from '@app/models';
 import { SettingsService } from '@app/services';
+import { DataModule } from '@data';
 import { AuthLayoutModule, MainLayoutModule } from '@layout';
 import { AuthModule } from '@modules/auth';
 import { SharedModule } from '@shared';
@@ -28,6 +29,7 @@ import { AppComponent } from './app.component';
 
     // Core & Shared
     CoreModule,
+    DataModule,
     SharedModule,
 
     // Layouts

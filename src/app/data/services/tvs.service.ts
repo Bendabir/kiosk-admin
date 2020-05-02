@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { APIService } from '@app/services';
 
 import { TV } from '../schemas';
-import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TVsService extends APIService {
   private endpoint = `${this.baseRoute}/tvs`;
 

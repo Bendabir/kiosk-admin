@@ -3,9 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Settings } from '../models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SettingsService {
   static LS_FIELD = 'settings';
 

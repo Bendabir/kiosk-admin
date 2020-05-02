@@ -6,9 +6,7 @@ import { environment as env } from '@env';
 
 /** Define a base service to be extended for the API.
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class APIService {
   protected baseRoute = `http://${env.server.host}:${env.server.port}/${env.server.routes.api}`;
 
