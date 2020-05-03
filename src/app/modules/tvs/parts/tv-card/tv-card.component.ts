@@ -4,7 +4,7 @@ import { of, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import { SnackBarService } from '@app/services';
-import { TV } from '@data/schemas';
+import { TV, ActionType } from '@data/schemas';
 import { TVsService } from '@data/services';
 import { ConfirmationDialogComponent } from '@shared/dialogs';
 
@@ -72,11 +72,25 @@ export class TVCardComponent {
   }
 
   identify() {
-    console.log('TODO : TV identification.');
+    this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).pipe(
+      tap(_ => {
+        const message = `Identified TV '${this.tv.displayName}'.`;
+
+        this.snackBarService.showInfo(message);
+      }),
+      catchError(this.handleError.bind(this, 'Error identifying TV'))
+    ).subscribe();
   }
 
   refresh() {
-    console.log('TODO : TV refresh.');
+    this.tvsService.triggerAction(this.tv, ActionType.RELOAD).pipe(
+      tap(_ => {
+        const message = `Refreshed TV '${this.tv.displayName}'.`;
+
+        this.snackBarService.showInfo(message);
+      }),
+      catchError(this.handleError.bind(this, 'Error refreshing TV'))
+    ).subscribe();
   }
 
   edit() {
@@ -106,7 +120,7 @@ export class TVCardComponent {
       width: '640px',
       data: {
         title: 'Delete TV',
-        titleAccent: this._tv.displayName,
+        titleAccent: this.tv.displayName,
         message: 'You\'re about to delete this TV forever, which is a long time. Are you willing to continue ?',
         button: {
           color: 'warn',
@@ -115,7 +129,7 @@ export class TVCardComponent {
       }
     }).afterClosed().subscribe(confirmation => {
       if (confirmation) {
-        this.tvsService.deleteOne(this._tv).pipe(
+        this.tvsService.deleteOne(this.tv).pipe(
           // Not really deleting the data from the view, just hiding it
           tap(_ => {
             this.deleted = true;

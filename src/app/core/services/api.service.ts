@@ -4,6 +4,8 @@ import { throwError } from 'rxjs';
 
 import { environment as env } from '@env';
 
+import { SettingsService } from './settings.service';
+
 /** Define a base service to be extended for the API.
  */
 @Injectable()
@@ -11,7 +13,8 @@ export class APIService {
   protected baseRoute = `http://${env.server.host}:${env.server.port}/${env.server.routes.api}`;
 
   constructor(
-    protected http: HttpClient
+    protected http: HttpClient,
+    protected settingsService: SettingsService
   ) { }
 
   public extractMessage(err: any) {

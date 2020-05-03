@@ -1,3 +1,4 @@
+export { Action, ActionType } from './action';
 export { Content, ContentType } from './content';
 export { File } from './file';
 export { Group } from './group';

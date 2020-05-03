@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { APIService } from '@app/services';
 
-import { TV } from '../schemas';
+import { Action, ActionType, TV } from '../schemas';
 
 @Injectable()
 export class TVsService extends APIService {
@@ -31,5 +31,17 @@ export class TVsService extends APIService {
     const url = `${this.endpoint}/${id}`;
 
     return this.http.delete<void>(url);
+  }
+
+  triggerAction(tv: TV, action: ActionType): Observable<Action> {
+    const url = `${this.endpoint}/${tv.id}/actions`;
+    const parameters = Action.parameters(action, this.settingsService.getSettings());
+
+    return this.http.post<Action>(url, {
+      action,
+      parameters
+    }).pipe(
+      map((response: any) => response.data)
+    );
   }
 }
