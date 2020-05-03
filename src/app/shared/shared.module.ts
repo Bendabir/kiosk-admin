@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
-import { LoaderComponent, SplashComponent } from './components';
+import { LabeledSliderComponent, LoaderComponent, SplashComponent } from './components';
 import { ConfirmationDialogComponent } from './dialogs';
 import { DurationPipe, OrNAPipe } from './pipes';
 
@@ -16,11 +16,13 @@ import { DurationPipe, OrNAPipe } from './pipes';
     OrNAPipe,
 
     // Misc components
-    SplashComponent,
+    LabeledSliderComponent,
     LoaderComponent,
+    SplashComponent,
 
     // Dialogs
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     DurationPipe,
     OrNAPipe,
 
+    LabeledSliderComponent,
     LoaderComponent,
     SplashComponent,
 

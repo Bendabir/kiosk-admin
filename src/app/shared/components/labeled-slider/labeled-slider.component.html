@@ -1,0 +1,7 @@
+<div class="labeled-slider">
+    <div class="header">
+        <span class="label">{{ label }}</span>
+        <span class="value">{{ sliderValue }}{{ unit }}</span>
+    </div>
+    <mat-slider [min]="min" [max]="max" [step]="step" [disabled]="disabled" [tickInterval]="tickInterval" [invert]="invert" [(ngModel)]="value" (ngModelChange)="updateChanges()" (input)="onSliderChange($event)"></mat-slider>
+</div>

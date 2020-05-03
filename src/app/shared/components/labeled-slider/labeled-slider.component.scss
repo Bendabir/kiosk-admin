@@ -1,0 +1,19 @@
+.labeled-slider {
+    $mat-font-size: 14px;
+
+    height: 59.5px;
+    margin-bottom: 17.5px;
+
+    .header .label {
+        font-size: $mat-font-size;
+    }
+
+    .header .value {
+        font-size: 0.75 * $mat-font-size;
+        float: right;
+    }
+
+    .mat-slider {
+        width: 100%;
+    }
+}

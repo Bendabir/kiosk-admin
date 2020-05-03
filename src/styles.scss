@@ -14,12 +14,14 @@
 @import 'app/layout/main-layout/main-layout.component.theme.scss';
 @import 'app/modules/tvs/parts/tv-card/tv-card.component.theme.scss';
 @import 'app/shared/components/splash/splash.component.theme.scss';
+@import 'app/shared/components/labeled-slider/labeled-slider.component.theme.scss';
 
 @mixin custom-components-theme($theme) {
     @include kiosk-reset-theme($theme);
     @include main-layout-component-theme($theme);
     @include tv-card-component-theme($theme);
     @include splash-component-theme($theme);
+    @include labeled-slider-component-theme($theme);
 }
 
 .kiosk-light-theme {

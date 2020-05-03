@@ -30,14 +30,12 @@
             </mat-form-field>
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
-            <mat-form-field fxFlex="50%">
-                <input [(ngModel)]="tv.volume100" name="volume" matInput placeholder="Volume" type="number" min="0" max="100" step="1" class="align-right">
-                <span matSuffix>%</span>
-            </mat-form-field>
-            <mat-form-field fxFlex="50%">
-                <input [(ngModel)]="tv.brightness100" name="brightness" matInput placeholder="Brightness" type="number" min="0" max="100" step="1" class="align-right">
-                <span matSuffix>%</span>
-            </mat-form-field>
+            <div fxFlex="50%">
+                <app-labeled-slider [(ngModel)]="tv.volume100" name ="volume" min="0" max="100" step="1" label="Volume" unit="%" [disabled]="tv.muted"></app-labeled-slider>
+            </div>
+            <div fxFlex="50%">
+                <app-labeled-slider [(ngModel)]="tv.brightness100" name ="brightness" min="0" max="100" step="1" label="Brightness" unit="%"></app-labeled-slider>
+            </div>
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
             <mat-checkbox fxFlex="33.33%" [(ngModel)]="tv.muted" name="muted" labelPosition="before" class="kiosk-checkbox">Mute</mat-checkbox>
