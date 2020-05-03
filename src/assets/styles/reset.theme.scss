@@ -1,69 +1,69 @@
 @import '~@angular/material/theming';
 
 @mixin kiosk-reset-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-  $foreground: map-get($theme, foreground);
-  $background: map-get($theme, background);
-  $is-dark-theme: map-get($theme, is-dark);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $is-dark-theme: map-get($theme, is-dark);
 
-  .kiosk-checkbox {
-    // Custom checkbox with design inspired from outlined mat-form-field
-    $mat-input-height: 39px;
-    $mat-input-padding: 9px;
-    $mat-input-border-width: 1px;
+    .labeled-checkbox {
+        // Custom checkbox with design inspired from outlined mat-form-field
+        $mat-input-height: 39px;
+        $mat-input-padding: 9px;
+        $mat-input-border-width: 1px;
 
-    $outline-color: mat-color($foreground, divider, if($is-dark-theme, 0.3, 0.12));
-    // $outline-color-hover: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
-    $outline-color-hover: mat-color($primary);
-    $outline-color-disabled: mat-color($foreground, divider, if($is-dark-theme, 0.15, 0.06));
-    $label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
-    $label-focused-color: mat-color($primary, text);
-    $label-disabled-color: mat-color($foreground, disabled-text);
+        $outline-color: mat-color($foreground, divider, if($is-dark-theme, 0.3, 0.12));
+        // $outline-color-hover: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+        $outline-color-hover: mat-color($primary);
+        $outline-color-disabled: mat-color($foreground, divider, if($is-dark-theme, 0.15, 0.06));
+        $label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
+        $label-focused-color: mat-color($primary, text);
+        $label-disabled-color: mat-color($foreground, disabled-text);
 
-    height: $mat-input-height;
-    border: $mat-input-border-width solid $outline-color;
-    border-radius: $radius;
-    padding-left: $mat-input-padding;
-    padding-right: $mat-input-padding;
-    margin-bottom: 17.5px !important;
-    color: $label-color;
+        height: $mat-input-height;
+        border: $mat-input-border-width solid $outline-color;
+        border-radius: $radius;
+        padding-left: $mat-input-padding;
+        padding-right: $mat-input-padding;
+        margin-bottom: 17.5px !important;
+        color: $label-color;
 
-    &.mat-checkbox-disabled {
-      border-color: $outline-color-disabled !important;
-      border-color: $outline-color-disabled !important;
-      border-width: $mat-input-border-width !important;
-      padding-left: $mat-input-padding !important;
-      padding-right: $mat-input-padding !important;
+        &.mat-checkbox-disabled {
+            border-color: $outline-color-disabled !important;
+            border-color: $outline-color-disabled !important;
+            border-width: $mat-input-border-width !important;
+            padding-left: $mat-input-padding !important;
+            padding-right: $mat-input-padding !important;
 
-      .mat-checkbox-layout .mat-checkbox-label {
-        line-height: $mat-input-height - 2 * $mat-input-border-width !important;
-        color: $label-disabled-color !important;
-      }
-    }
+            .mat-checkbox-layout .mat-checkbox-label {
+            line-height: $mat-input-height - 2 * $mat-input-border-width !important;
+            color: $label-disabled-color !important;
+            }
+        }
 
-    &:hover {
-      $outline-width-hover: 2 * $mat-input-border-width;
+        &:hover {
+            $outline-width-hover: 2 * $mat-input-border-width;
 
-      border-color: $outline-color-hover;
-      border-width: $outline-width-hover;
-      padding-left: $mat-input-padding - $mat-input-border-width;
-      padding-right: $mat-input-padding - $mat-input-border-width;
+            border-color: $outline-color-hover;
+            border-width: $outline-width-hover;
+            padding-left: $mat-input-padding - $mat-input-border-width;
+            padding-right: $mat-input-padding - $mat-input-border-width;
 
-      .mat-checkbox-layout .mat-checkbox-label {
-        line-height: $mat-input-height - 2 * $outline-width-hover;
-        color: $label-focused-color;
-      }
-    }
+            .mat-checkbox-layout .mat-checkbox-label {
+            line-height: $mat-input-height - 2 * $outline-width-hover;
+            color: $label-focused-color;
+            }
+        }
 
-    .mat-checkbox-layout {
-        width: 100%;
-
-        .mat-checkbox-label {
+        .mat-checkbox-layout {
             width: 100%;
-            line-height: $mat-input-height - 2 * $mat-input-border-width;
+
+            .mat-checkbox-label {
+                width: 100%;
+                line-height: $mat-input-height - 2 * $mat-input-border-width;
+            }
         }
     }
-}
 }

@@ -21,8 +21,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     SplashComponent,
 
     // Dialogs
-    ConfirmationDialogComponent,
-
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +42,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     OrNAPipe,
 
     LabeledSliderComponent,
+
     LoaderComponent,
     SplashComponent,
 
