@@ -20,18 +20,15 @@
 
         <h3>Screen actions</h3>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
-            <mat-form-field fxFlex="33.33%">
-                <input matInput placeholder="Identification duration" name="identify-duration" [(ngModel)]="settings.identifyDuration" type="number" min="500" step="100">
-                <mat-hint align="end">In milliseconds.</mat-hint>
-            </mat-form-field>
-            <mat-form-field fxFlex="33.33%">
-                <input matInput placeholder="Forward step" name="forward-duration" [(ngModel)]="settings.forwardDuration" type="number" min="100" step="100">
-                <mat-hint align="end">In milliseconds.</mat-hint>
-            </mat-form-field>
-            <mat-form-field fxFlex="33.33%">
-                <input matInput placeholder="Rewind step" name="rewind-duration" [(ngModel)]="settings.rewindDuration" type="number" min="100" step="100">
-                <mat-hint align="end">In milliseconds.</mat-hint>
-            </mat-form-field>
+            <div fxFlex="33.33%">
+                <app-labeled-slider [(ngModel)]="settings.identifyDuration" name="identify-duration" min="500" max="10000" step="100" label="Identification" unit="ms"></app-labeled-slider>
+            </div>
+            <div fxFlex="33.33%">
+                <app-labeled-slider [(ngModel)]="settings.forwardDuration" name="forward-duration" min="500" max="10000" step="100" label="Forward step" unit="ms"></app-labeled-slider>
+            </div>
+            <div fxFlex="33.33%">
+                <app-labeled-slider [(ngModel)]="settings.rewindDuration" name="rewind-duration" min="500" max="10000" step="100" label="Rewind step" unit="ms"></app-labeled-slider>
+            </div>
         </div>
 
         <h3>Information</h3>
