@@ -63,33 +63,34 @@ export class TVCardComponent {
       tap(data => {
         this.tv = data;
 
-        const message = `Toggled TV '${this.tv.displayName}'.`;
+        const verb = this.tv.active ? 'Enabled' : 'Disabled';
+        const message = `${verb} screen '${this.tv.displayName}'.`;
 
         this.snackBarService.showInfo(message);
       }),
-      catchError(this.handleError.bind(this, 'Error toggling TV'))
+      catchError(this.handleError.bind(this, 'Error toggling screen'))
     ).subscribe();
   }
 
   identify() {
     this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).pipe(
       tap(_ => {
-        const message = `Identified TV '${this.tv.displayName}'.`;
+        const message = `Identified screen '${this.tv.displayName}'.`;
 
         this.snackBarService.showInfo(message);
       }),
-      catchError(this.handleError.bind(this, 'Error identifying TV'))
+      catchError(this.handleError.bind(this, 'Error identifying screen'))
     ).subscribe();
   }
 
   refresh() {
     this.tvsService.triggerAction(this.tv, ActionType.RELOAD).pipe(
       tap(_ => {
-        const message = `Refreshed TV '${this.tv.displayName}'.`;
+        const message = `Refreshed screen '${this.tv.displayName}'.`;
 
         this.snackBarService.showInfo(message);
       }),
-      catchError(this.handleError.bind(this, 'Error refreshing TV'))
+      catchError(this.handleError.bind(this, 'Error refreshing screen'))
     ).subscribe();
   }
 
@@ -107,9 +108,9 @@ export class TVCardComponent {
           tap(data => {
             this.tv = data;
 
-            this.snackBarService.showInfo(`Edited TV '${this.tv.displayName}'.`);
+            this.snackBarService.showInfo(`Edited screen '${this.tv.displayName}'.`);
           }),
-          catchError(this.handleError.bind(this, 'Error editing TV'))
+          catchError(this.handleError.bind(this, 'Error editing screen'))
         ).subscribe();
       }
     });
@@ -119,9 +120,9 @@ export class TVCardComponent {
     this.dialog.open(ConfirmationDialogComponent, {
       width: '640px',
       data: {
-        title: 'Delete TV',
+        title: 'Delete screen',
         titleAccent: this.tv.displayName,
-        message: 'You\'re about to delete this TV forever, which is a long time. Are you willing to continue ?',
+        message: 'You\'re about to delete this screen forever, which is a long time. Are you willing to continue ?',
         button: {
           color: 'warn',
           title: 'Delete'
@@ -134,9 +135,9 @@ export class TVCardComponent {
           tap(_ => {
             this.deleted = true;
 
-            this.snackBarService.showInfo(`Deleted TV '${this.tv.displayName}'.`);
+            this.snackBarService.showInfo(`Deleted screen '${this.tv.displayName}'.`);
           }),
-          catchError(this.handleError.bind(this, 'Error deleting TV'))
+          catchError(this.handleError.bind(this, 'Error deleting screen'))
         ).subscribe();
       }
     });

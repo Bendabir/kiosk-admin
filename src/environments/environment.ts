@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   routes: {
-    home: '/home/tvs',
+    home: '/home/screens',
     login: '/auth/login'
   },
   version: '3.0.0',

@@ -21,7 +21,7 @@ const routes: Routes = [{
     redirectTo: environment.routes.home,
     pathMatch: 'full'
   }, {
-    path: 'tvs',
+    path: 'screens',
     loadChildren: () => import('@modules/tvs/tvs.module').then(m => m.TVsModule)
   }]
 }, {

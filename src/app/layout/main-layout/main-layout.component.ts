@@ -47,9 +47,9 @@ export class MainLayoutComponent implements OnInit {
   public actionsToolbarExpanded = true;
 
   public NAV_ITEMS: any[] = [{
-    link: '/home/tvs',
+    link: '/home/screens',
     icon: 'tvs',
-    title: 'TVs'
+    title: 'Screens'
   }, {
     link: '/home/groups',
     icon: 'group_work',
