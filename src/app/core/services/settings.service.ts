@@ -9,12 +9,13 @@ export class SettingsService {
   static LS_FIELD = 'settings';
 
   private _settings: BehaviorSubject<Settings>;
+  private snackBarService: SnackBarService;
 
-  constructor(private snackBarService: SnackBarService) {
+  constructor() {
     const settings = localStorage.getItem(SettingsService.LS_FIELD);
 
     this._settings = new BehaviorSubject<Settings>(
-      settings !== null ? JSON.parse(settings) : Settings.DEFAULT
+      settings !== null ? Object.assign(new Settings(), JSON.parse(settings)) : Settings.DEFAULT
     );
   }
 
@@ -35,5 +36,9 @@ export class SettingsService {
 
   public getThemeClass(): string {
     return Settings.themeClass(this._settings.value.theme);
+  }
+
+  public bindSnackBarService(service: SnackBarService) {
+    this.snackBarService = service;
   }
 }

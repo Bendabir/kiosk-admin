@@ -23,4 +23,11 @@ import { APIKeyInterceptor } from './interceptors';
     }
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+  constructor(
+    settingsService: SettingsService,
+    snackBarService: SnackBarService
+  ) {
+    settingsService.bindSnackBarService(snackBarService);
+  }
+}
