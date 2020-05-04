@@ -12,6 +12,7 @@ export class Settings {
     static DEFAULT: Settings = {
         theme: Theme.LIGHT,
         locale: Locale.en_US,
+        snacksEnabled: true,
         identifyDuration: 5000,
         forwardDuration: 5000,
         rewindDuration: 5000
@@ -19,6 +20,7 @@ export class Settings {
 
     theme: Theme;
     locale: Locale;
+    snacksEnabled = true;
     identifyDuration: number;
     forwardDuration: number;
     rewindDuration: number;

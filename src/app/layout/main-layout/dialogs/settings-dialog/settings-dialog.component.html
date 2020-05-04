@@ -3,19 +3,20 @@
     <form #settingsForm="ngForm">
         <h3>General</h3>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
-            <mat-form-field fxFlex="50%">
+            <mat-form-field fxFlex="33.33%">
                 <mat-label>Theme</mat-label>
                 <mat-select name="theme" [(ngModel)]="settings.theme">
                     <mat-option *ngFor="let t of THEMES" [value]="t">{{ t | titlecase }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="50%">
+            <mat-form-field fxFlex="33.33%">
                 <mat-label>Locale</mat-label>
                 <mat-select name="locale" [(ngModel)]="settings.locale" disabled>
                     <mat-option *ngFor="let l of LOCALES" [value]="l">{{ localeName(l) }}</mat-option>
                 </mat-select>
                 <mat-hint align="end">Currently not supported.</mat-hint>
             </mat-form-field>
+            <mat-checkbox fxFlex="33.33%" [(ngModel)]="settings.snacksEnabled" name="snacks-enabled" labelPosition="before" class="labeled-checkbox">Notifications</mat-checkbox>
         </div>
 
         <h3>Screen actions</h3>

@@ -31,7 +31,7 @@ export class SettingsService {
     this._settings.next(settings);
     localStorage.setItem(SettingsService.LS_FIELD , JSON.stringify(settings));
 
-    this.snackBarService.showInfo('Updated settings.');
+    this.snackBarService.showInfo('Updated settings.', true);
   }
 
   public getThemeClass(): string {

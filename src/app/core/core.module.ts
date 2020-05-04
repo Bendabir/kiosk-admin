@@ -28,6 +28,8 @@ export class CoreModule {
     settingsService: SettingsService,
     snackBarService: SnackBarService
   ) {
+    // This avoids circular references issue
     settingsService.bindSnackBarService(snackBarService);
+    snackBarService.bindSettingsService(settingsService);
   }
 }
