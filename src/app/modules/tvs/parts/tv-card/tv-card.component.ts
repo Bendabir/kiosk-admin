@@ -97,6 +97,7 @@ export class TVCardComponent {
   edit() {
     this.dialog.open(EditTVDialogComponent, {
       width: '640px',
+      autoFocus: false,
       data: {
         tv: this.tv
       }
@@ -119,6 +120,7 @@ export class TVCardComponent {
   delete() {
     this.dialog.open(ConfirmationDialogComponent, {
       width: '640px',
+      autoFocus: false,
       data: {
         title: 'Delete screen',
         titleAccent: this.tv.displayName,

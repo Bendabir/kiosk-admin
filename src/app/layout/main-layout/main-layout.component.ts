@@ -99,6 +99,7 @@ export class MainLayoutComponent implements OnInit {
   openSettings() {
     this.settingsDialog.open(SettingsDialogComponent, {
       width: '640px',
+      autoFocus: false,
       data: {
         settings: this.settingsService.settings
       }
