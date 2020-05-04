@@ -14,11 +14,11 @@ import { Splash } from '@shared/models';
 export class TVsPageComponent implements OnInit {
   noTVSplash: Splash = {
     icon: 'tv',
-    title: 'No TV',
-    message: 'Declare a TV and it will show up here.',
+    title: 'No screen',
+    message: 'Declare a screen and it will show up here.',
     button: {
       action: this.create.bind(this),
-      title: 'Declare TV'
+      title: 'Declare screen'
     }
   };
   errorSplash: Splash;
