@@ -35,7 +35,7 @@ export class TVsService extends APIService {
 
   triggerAction(tv: TV, action: ActionType): Observable<Action> {
     const url = `${this.endpoint}/${tv.id}/actions`;
-    const parameters = Action.parameters(action, this.settingsService.getSettings());
+    const parameters = Action.parameters(action, this.settingsService.settings);
 
     return this.http.post<Action>(url, {
       action,

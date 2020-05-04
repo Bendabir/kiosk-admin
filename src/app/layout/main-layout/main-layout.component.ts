@@ -100,12 +100,12 @@ export class MainLayoutComponent implements OnInit {
     this.settingsDialog.open(SettingsDialogComponent, {
       width: '640px',
       data: {
-        settings: this.settingsService.getSettings()
+        settings: this.settingsService.settings
       }
     }).afterClosed().subscribe(result => {
       // Save the settings
       if (result) {
-        this.settingsService.setSettings(result);
+        this.settingsService.settings = result;
       }
     });
   }
