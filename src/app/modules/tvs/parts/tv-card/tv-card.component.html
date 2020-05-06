@@ -5,7 +5,20 @@
         <div fxFlex></div>
         <mat-icon [matTooltip]="(tv.on) ? 'Running' : 'Down'" matTooltipPosition="left" [ngClass]="(tv.on) ? 'running-status' : 'down-status'">{{ (tv.on) ? 'cast_connected' : 'cast' }}</mat-icon>
     </mat-card-header>
-    <img mat-card-image [src]="tv.thumbnail()">
+    <img mat-card-image [src]="tv.thumbnail()" />
+    <div class="hover-actions">
+        <div class="actions-wrapper">
+            <button mat-icon-button (click)="rewind()">
+                <mat-icon>fast_rewind</mat-icon>
+            </button>
+            <button mat-icon-button (click)="togglePlay()">
+                <mat-icon>{{ playing ? 'pause' : 'play_arrow' }}</mat-icon>
+            </button>
+            <button mat-icon-button (click)="forward()">
+                <mat-icon>fast_forward</mat-icon>
+            </button>
+        </div>
+    </div>
     <mat-card-content>
         <div class="details" fxLayout="row" fxLayoutAlign="space-between center">
             <span class="info" matTooltip="IP">{{ tv.ip | orNA }}</span>

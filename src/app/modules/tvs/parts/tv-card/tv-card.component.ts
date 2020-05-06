@@ -29,6 +29,7 @@ export class TVCardComponent {
   }
 
   @HostBinding('class.deleted') public deleted = false;
+  public playing = true;
 
   constructor(
     private dialog: MatDialog,
@@ -122,5 +123,33 @@ export class TVCardComponent {
         }, this.handleError.bind(this, 'Error deleting screen'));
       }
     });
+  }
+
+  togglePlay() {
+    this.playing = !this.playing;
+
+    const action = this.playing ? ActionType.PLAY : ActionType.PAUSE;
+
+    this.tvsService.triggerAction(this.tv, action).subscribe(_ => {
+      const message = `${this.playing ? 'Played' : 'Paused'} screen '${this.tv.displayName}'.`;
+
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error playing/pausing screen'));
+  }
+
+  rewind() {
+    this.tvsService.triggerAction(this.tv, ActionType.REWIND).subscribe(_ => {
+      const message = `Rewinded screen '${this.tv.displayName}'.`;
+
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error rewinding screen'));
+  }
+
+  forward() {
+    this.tvsService.triggerAction(this.tv, ActionType.FORWARD).subscribe(_ => {
+      const message = `Forwarded screen '${this.tv.displayName}'.`;
+
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error forwarding screen'));
   }
 }
