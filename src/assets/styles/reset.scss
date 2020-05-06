@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 * {
     &:active, :focus {
@@ -26,6 +27,22 @@ body {
 
 .mat-dialog-container {
     border-radius: $radius !important;
+}
+
+// Make dialogs full screen on small screens
+@include screen(xs) {
+    .mat-dialog-container {
+        border-radius: 0 !important;
+    }
+
+    .mat-dialog-content {
+        min-height: calc(100% - 96px);
+    }
+
+    .cdk-overlay-pane {
+        height: 100vh !important;
+        max-width: 100vh !important;
+    }
 }
 
 .mat-select-panel {
