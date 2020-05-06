@@ -1,7 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { of, Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
 
 import { SnackBarService } from '@app/services';
 import { TV, ActionType } from '@data/schemas';
@@ -48,50 +46,38 @@ export class TVCardComponent {
     }
   }
 
-  private handleError(topMessage: string, err: any): Observable<TV> {
+  private handleError(topMessage: string, err: any) {
     const message = this.tvsService.extractMessage(err);
     const errorMessage = `${topMessage} '${this.tv.displayName}' : ${message}`;
 
     this.snackBarService.showError(errorMessage);
-
-    return of(null);
   }
 
   toggleActive() {
-    this.tvsService.updateOne(this.tv.flatten(), true).pipe(
-      // Extract server response and load it into the component
-      tap(data => {
-        this.tv = data;
+    this.tvsService.updateOne(this.tv.flatten(), true).subscribe(tv => {
+      this.tv = tv;
 
-        const verb = this.tv.active ? 'Enabled' : 'Disabled';
-        const message = `${verb} screen '${this.tv.displayName}'.`;
+      const verb = this.tv.active ? 'Enabled' : 'Disabled';
+      const message = `${verb} screen '${this.tv.displayName}'.`;
 
-        this.snackBarService.showInfo(message);
-      }),
-      catchError(this.handleError.bind(this, 'Error toggling screen'))
-    ).subscribe();
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error toggling screen'));
   }
 
   identify() {
-    this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).pipe(
-      tap(_ => {
-        const message = `Identified screen '${this.tv.displayName}'.`;
+    this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).subscribe(_ => {
+      const message = `Identified screen '${this.tv.displayName}'.`;
 
-        this.snackBarService.showInfo(message);
-      }),
-      catchError(this.handleError.bind(this, 'Error identifying screen'))
-    ).subscribe();
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error identifying screen'));
   }
 
   refresh() {
-    this.tvsService.triggerAction(this.tv, ActionType.RELOAD).pipe(
-      tap(_ => {
-        const message = `Refreshed screen '${this.tv.displayName}'.`;
+    this.tvsService.triggerAction(this.tv, ActionType.RELOAD).subscribe(_ => {
+      const message = `Refreshed screen '${this.tv.displayName}'.`;
 
-        this.snackBarService.showInfo(message);
-      }),
-      catchError(this.handleError.bind(this, 'Error refreshing screen'))
-    ).subscribe();
+      this.snackBarService.showInfo(message);
+    }, this.handleError.bind(this, 'Error refreshing screen'));
   }
 
   edit() {
@@ -104,15 +90,11 @@ export class TVCardComponent {
     }).afterClosed().subscribe(tv => {
       // Result if a flatten data (group and content are IDs)
       if (tv) {
-        this.tvsService.updateOne(tv, true).pipe(
-          // Extract server response and load it into the component
-          tap(data => {
-            this.tv = data;
+        this.tvsService.updateOne(tv, true).subscribe(updatedTV => {
+            this.tv = updatedTV;
 
             this.snackBarService.showInfo(`Edited screen '${this.tv.displayName}'.`);
-          }),
-          catchError(this.handleError.bind(this, 'Error editing screen'))
-        ).subscribe();
+        }, this.handleError.bind(this, 'Error editing screen'));
       }
     });
   }
@@ -132,15 +114,12 @@ export class TVCardComponent {
       }
     }).afterClosed().subscribe(confirmation => {
       if (confirmation) {
-        this.tvsService.deleteOne(this.tv).pipe(
+        this.tvsService.deleteOne(this.tv).subscribe(_ => {
           // Not really deleting the data from the view, just hiding it
-          tap(_ => {
-            this.deleted = true;
+          this.deleted = true;
 
-            this.snackBarService.showInfo(`Deleted screen '${this.tv.displayName}'.`);
-          }),
-          catchError(this.handleError.bind(this, 'Error deleting screen'))
-        ).subscribe();
+          this.snackBarService.showInfo(`Deleted screen '${this.tv.displayName}'.`);
+        }, this.handleError.bind(this, 'Error deleting screen'));
       }
     });
   }

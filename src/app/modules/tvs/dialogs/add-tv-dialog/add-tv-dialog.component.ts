@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { SnackBarService } from '@app/services';
 import { Content, ContentType, Group, TV } from '@data/schemas';
@@ -21,8 +21,8 @@ export class AddTVDialogComponent {
   private static NB_STEPS = 2;
 
   public tv: TV;
-  public contentsByType$: Observable<Map<ContentType, Content[]>>;
-  public groups$: Observable<Group[]>;
+  public contentsByType$: BehaviorSubject<Map<ContentType, Content[]>>;
+  public groups$: BehaviorSubject<Group[]>;
 
   constructor(
     private dialogRef: MatDialogRef<AddTVDialogComponent>,
@@ -31,18 +31,20 @@ export class AddTVDialogComponent {
     private snackBarService: SnackBarService
   ) {
     this.tv = new TV();
-    this.contentsByType$ = this.contentsService.getAll().pipe(
+    this.contentsService.getAll().pipe(
       catchError(err => {
         const message = this.contentsService.extractMessage(err);
 
         this.snackBarService.showError(`Error fetching contents : ${message}`);
 
         return of([]);
-      }),
-      // Then, group the contents by type for display in select
-      map(contents => ContentsService.groupContentsByType(contents))
-    );
-    this.groups$ = this.groupsService.getAll().pipe(
+      })
+    ).subscribe(contents => {
+      const grouped = ContentsService.groupContentsByType(contents);
+
+      this.contentsByType$ = new BehaviorSubject(grouped);
+    });
+    this.groupsService.getAll().pipe(
       catchError(err => {
         const message = this.groupsService.extractMessage(err);
 
@@ -50,7 +52,9 @@ export class AddTVDialogComponent {
 
         return of([]);
       })
-    );
+    ).subscribe(groups => {
+      this.groups$ = new BehaviorSubject(groups);
+    });
   }
 
   onNoClick() {

@@ -85,7 +85,7 @@ export class MainLayoutComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize(event: any) {
     this.resize(event.target.innerWidth);
   }
 

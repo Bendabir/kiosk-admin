@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { SnackBarService } from '@app/services';
 import { Content, ContentType, Group, TV } from '@data/schemas';
@@ -14,8 +14,8 @@ import { ContentsService, GroupsService } from '@data/services';
 })
 export class EditTVDialogComponent {
   public tv: TV;
-  public contentsByType$: Observable<Map<ContentType, Content[]>>;
-  public groups$: Observable<Group[]>;
+  public contentsByType$: BehaviorSubject<Map<ContentType, Content[]>>;
+  public groups$: BehaviorSubject<Group[]>;
 
   constructor(
     private dialogRef: MatDialogRef<EditTVDialogComponent>,
@@ -25,18 +25,20 @@ export class EditTVDialogComponent {
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
     this.tv = data.tv.flatten(); // Working on a copy
-    this.contentsByType$ = this.contentsService.getAll().pipe(
+    this.contentsService.getAll().pipe(
       catchError(err => {
         const message = this.contentsService.extractMessage(err);
 
         this.snackBarService.showError(`Error fetching contents : ${message}`);
 
         return of([]);
-      }),
-      // Then, group the contents by type for display in select
-      map(contents => ContentsService.groupContentsByType(contents))
-    );
-    this.groups$ = this.groupsService.getAll().pipe(
+      })
+    ).subscribe(contents => {
+      const grouped = ContentsService.groupContentsByType(contents);
+
+      this.contentsByType$ = new BehaviorSubject(grouped);
+    });
+    this.groupsService.getAll().pipe(
       catchError(err => {
         const message = this.groupsService.extractMessage(err);
 
@@ -44,7 +46,9 @@ export class EditTVDialogComponent {
 
         return of([]);
       })
-    );
+    ).subscribe(groups => {
+      this.groups$ = new BehaviorSubject(groups);
+    });
   }
 
   onNoClick() {
