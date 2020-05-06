@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { BehaviorSubject } from 'rxjs';
 
+import { SnackBarService } from '@app/services';
 import { TV } from '@data/schemas';
 import { TVsService } from '@data/services';
 import { Splash } from '@shared/models';
+
+import { AddTVDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-tvs-page',
@@ -22,10 +25,12 @@ export class TVsPageComponent implements OnInit {
     }
   };
   errorSplash: Splash;
-  tvs$: Observable<TV[]>;
+  tvs$: BehaviorSubject<TV[]>;
 
   constructor(
-    private tvsService: TVsService
+    private dialog: MatDialog,
+    private tvsService: TVsService,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit() {
@@ -34,20 +39,37 @@ export class TVsPageComponent implements OnInit {
 
   reload() {
     this.errorSplash = null;
-    this.tvs$ = this.tvsService.getAll(true).pipe(
-      catchError(err => {
-        const message = this.tvsService.extractMessage(err);
-        this.errorSplash = Splash.errorSplash(message, {
-          action: this.reload.bind(this),
-          title: 'Retry'
-        });
-
-        return throwError(err);
-      })
-    );
+    this.tvs$ = null;
+    this.tvsService.getAll(true).subscribe(tvs => {
+      this.tvs$ = new BehaviorSubject<TV[]>(tvs);
+    }, err => {
+      const message = this.tvsService.extractMessage(err);
+      this.errorSplash = Splash.errorSplash(message, {
+        action: this.reload.bind(this),
+        title: 'Retry'
+      });
+    });
   }
 
   create() {
-    console.log('TODO : TV creation.');
+    this.dialog.open(AddTVDialogComponent, {
+      width: '640px',
+      autoFocus: false,
+      data: {}
+    }).afterClosed().subscribe(tv => {
+      if (tv) {
+        this.tvsService.addOne(tv, true).subscribe(addedTV => {
+          const tvs = this.tvs$.value;
+
+          tvs.push(addedTV);
+
+          this.tvs$.next(tvs);
+        }, err => {
+          const message = this.tvsService.extractMessage(err);
+
+          this.snackBarService.showError(`Error creating screen : ${message}`);
+        });
+      }
+    });
   }
 }

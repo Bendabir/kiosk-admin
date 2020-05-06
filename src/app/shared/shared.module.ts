@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from './material.module';
@@ -27,6 +27,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     CommonModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
 
     MaterialModule
   ],
@@ -34,6 +35,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     CommonModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
 
     MaterialModule,
     FlexLayoutModule,

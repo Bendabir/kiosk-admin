@@ -18,6 +18,14 @@ export class TVsService extends APIService {
     );
   }
 
+  addOne(tv: TV, resolve: boolean = false): Observable<TV> {
+    const url = `${this.endpoint}?resolve=${resolve}`;
+
+    return this.http.post<TV>(url, tv).pipe(
+      map((response: any) => response.data)
+    );
+  }
+
   updateOne(tv: TV, resolve: boolean = false): Observable<TV> {
     const url = `${this.endpoint}/${tv.id}?resolve=${resolve}`;
 
