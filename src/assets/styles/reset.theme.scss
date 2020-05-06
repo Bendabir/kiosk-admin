@@ -8,6 +8,10 @@
     $background: map-get($theme, background);
     $is-dark-theme: map-get($theme, is-dark);
 
+    .snackbar-error .mat-simple-snackbar-action {
+        color: mat-color($warn, text);
+    }
+
     .labeled-checkbox {
         // Custom checkbox with design inspired from outlined mat-form-field
         $mat-input-height: 39px;

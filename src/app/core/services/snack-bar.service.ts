@@ -12,7 +12,8 @@ export class SnackBarService {
   showError(message: string) {
     // Error will be always shown, no matter the settings
     this.snackBar.open(message, 'DISMISS', {
-      duration: 5000
+      duration: 5000,
+      panelClass: ['snackbar-error']
     });
   }
 
