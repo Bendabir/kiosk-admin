@@ -19,11 +19,12 @@
         $mat-input-border-width: 1px;
 
         $outline-color: mat-color($foreground, divider, if($is-dark-theme, 0.3, 0.12));
-        // $outline-color-hover: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
-        $outline-color-hover: mat-color($primary);
+        $outline-color-hover: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+        // $outline-color-hover: mat-color($primary);
         $outline-color-disabled: mat-color($foreground, divider, if($is-dark-theme, 0.15, 0.06));
         $label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
-        $label-focused-color: mat-color($primary, text);
+        // $label-focused-color: mat-color($primary, text);
+        $label-focused-color: $outline-color-hover;
         $label-disabled-color: mat-color($foreground, disabled-text);
 
         height: $mat-input-height;
@@ -68,6 +69,16 @@
                 width: 100%;
                 line-height: $mat-input-height - 2 * $mat-input-border-width;
             }
+        }
+    }
+
+    .mat-form-field.mat-focused .mat-form-field-label {
+        color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+    }
+
+    .mat-form-field.mat-focused {
+        .mat-form-field-ripple {
+            background-color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
         }
     }
 }
