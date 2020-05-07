@@ -29,6 +29,10 @@ body {
     border-radius: $radius !important;
 }
 
+.mat-snack-bar-container {
+    border-radius: $radius !important;
+}
+
 // Make dialogs full screen on small screens
 @include screen(xs) {
     .mat-dialog-container {
