@@ -43,9 +43,14 @@ body {
         min-height: calc(100% - 96px);
     }
 
-    .cdk-overlay-pane {
-        height: 100vh !important;
-        max-width: 100vh !important;
+    .mat-dialog-container {
+        height: 100% !important;
+        max-height: 100vh !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }
 
