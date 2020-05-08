@@ -4,7 +4,7 @@
     </div>
     <div class="title" [ngClass]="isSmallScreen() ? 'title-small-screen' : ''">Kiosk</div>
     <div>
-        <mat-icon *ngIf="hasActions$ | async" class="toolbar-icon" [matTooltip]="actionsToolbarExpanded ? 'Hide actions' : 'Show actions'" (click)="toggleActionsToolbar()">{{ actionsToolbarExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+        <mat-icon *ngIf="actionsEnabled$ | async" class="toolbar-icon" [matTooltip]="actionsToolbarExpanded ? 'Hide actions' : 'Show actions'" (click)="toggleActionsToolbar()">{{ actionsToolbarExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
         <mat-icon class="toolbar-icon" matTooltip="Log out" (click)="logout()">exit_to_app</mat-icon>
         <mat-icon class="toolbar-icon" matTooltip="Settings" (click)="openSettings()">settings</mat-icon>
     </div>
@@ -23,18 +23,16 @@
     <mat-sidenav-content>
         <mat-toolbar class="actions-toolbar" [@expandActionsToolbar]="actionsToolbarExpanded ? 'expanded' : 'collapsed'">
             <div fxLayoutAlign="start stretch" fxLayoutGap="16px">
-                <ng-container *ngIf="actionsReady$ | async">
-                    <div *ngFor="let el of actions" [ngSwitch]="el.type">
-                        <ng-template ngSwitchCase="divider">
-                            <mat-divider vertical="true"></mat-divider>
-                        </ng-template>
-                        <ng-template ngSwitchCase="button">
-                            <button mat-icon-button [matTooltip]="el.tooltip" (click)="el.action()" [color]="el.color" [disabled]="el.disabled">
-                                <mat-icon>{{ el.icon }}</mat-icon>
-                            </button>
-                        </ng-template>
-                    </div>
-                </ng-container>
+                <div *ngFor="let el of actions$ | async" [ngSwitch]="el.type">
+                    <ng-template ngSwitchCase="divider">
+                        <mat-divider vertical="true"></mat-divider>
+                    </ng-template>
+                    <ng-template ngSwitchCase="button">
+                        <button mat-icon-button [matTooltip]="el.tooltip" (click)="el.action()" [color]="el.color" [disabled]="el.disabled">
+                            <mat-icon>{{ el.icon }}</mat-icon>
+                        </button>
+                    </ng-template>
+                </div>
             </div>
         </mat-toolbar>
 

@@ -32,21 +32,27 @@ export type ActionItem = ActionButton | ActionDivider;
 
 @Injectable()
 export class ActionsService {
-  private _actions: BehaviorSubject<ActionItem[]>;
+  private _actions: BehaviorSubject<ActionItem[]> = new BehaviorSubject([]);
+  private _enabled: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor() {
-    this._actions = new BehaviorSubject<ActionItem[]>([]);
-  }
-
-  get actions$(): Observable<ActionItem[]> {
-    return this._actions.asObservable();
-  }
+  public readonly actions$: Observable<ActionItem[]> = this._actions.asObservable();
+  public readonly actionsEnabled$: Observable<boolean> = this._enabled.asObservable();
 
   get actions(): ActionItem[] {
     return this._actions.value;
   }
 
   set actions(actions: ActionItem[]) {
+    this._enabled.next(actions.length > 0);
     this._actions.next(actions);
+  }
+
+  get actionsEnabled(): boolean {
+    return this._enabled.value;
+  }
+
+  disableActions() {
+    this._enabled.next(false);
+    this._actions.next([]);
   }
 }

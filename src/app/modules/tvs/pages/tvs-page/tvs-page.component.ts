@@ -36,10 +36,7 @@ export class TVsPageComponent implements OnInit {
     private dialog: MatDialog,
     private tvsService: TVsService,
     private actionsService: ActionsService
-  ) { }
-
-  ngOnInit() {
-    // Load the global actions to the toolbar
+  ) {
     this.actionsService.actions = [
       new ActionButton('add', 'Create screen', this.create.bind(this)),
       new ActionDivider(),
@@ -48,7 +45,9 @@ export class TVsPageComponent implements OnInit {
       new ActionDivider(),
       new ActionButton('sync', 'Refresh', this.reload.bind(this))
     ];
+  }
 
+  ngOnInit() {
     this.reload();
   }
 
@@ -95,6 +94,6 @@ export class TVsPageComponent implements OnInit {
   }
 
   reloadAll() {
-    this.tvsService.triggerActionAll(ActionType.RELOAD).subscribe(this.doNothingOnError)
+    this.tvsService.triggerActionAll(ActionType.RELOAD).subscribe(this.doNothingOnError);
   }
 }

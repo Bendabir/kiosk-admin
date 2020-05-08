@@ -1,8 +1,7 @@
-import { Component, OnInit, HostListener, ViewChild, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Router} from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { tap } from 'rxjs/operators';
 
 import { environment } from '@env';
 import { AuthService, SettingsService } from '@app/services';
@@ -10,6 +9,7 @@ import { Breakpoint } from '@app/models';
 
 import { SettingsDialogComponent } from './dialogs';
 import { ActionItem, ActionsService } from './services';
+import { Observable } from 'rxjs';
 
 const ACTIONS_TOOLBAR_HEIGHT = '48px';
 const TRANSITION = transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'));
@@ -47,9 +47,8 @@ export class MainLayoutComponent implements OnInit {
     static: true
   }) public sideNav: MatSidenav;
   public actionsToolbarExpanded = true;
-  public actions: ActionItem[];
-  public actionsReady$: EventEmitter<boolean>;
-  public hasActions$: EventEmitter<boolean>;
+  public actionsEnabled$: Observable<boolean>;
+  public actions$: Observable<ActionItem[]>;
 
   public NAV_ITEMS: any[] = [{
     link: '/home/screens',
@@ -86,27 +85,16 @@ export class MainLayoutComponent implements OnInit {
     private router: Router
   ) {
     // Dynamically inject the actions in the toolbar
-    this.actions = this.actionsService.actions;
-    this.hasActions$ = new EventEmitter(true);
-    this.actionsReady$ = new EventEmitter(true);
+    this.actions$ = this.actionsService.actions$;
+    this.actionsEnabled$ = this.actionsService.actionsEnabled$;
+
+    // Hide the toolbar when actions are disabled
+    this.actionsService.actionsEnabled$.subscribe(enabled => {
+      this.actionsToolbarExpanded = enabled;
+    });
   }
 
   ngOnInit() {
-    this.actionsService.actions$.pipe(
-      tap(_ => {
-        this.actionsReady$.emit(false);
-      })
-    ).subscribe(actions => {
-      this.actions = actions;
-
-      // Collapse the toolbar if no actions
-      const hasActions = actions.length > 0;
-
-      this.actionsToolbarExpanded = hasActions;
-      this.hasActions$.emit(hasActions);
-      this.actionsReady$.emit(true);
-    });
-
     this.resize(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
   }
 
