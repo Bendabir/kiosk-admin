@@ -36,4 +36,16 @@ export class Action {
             default: return null;
         }
     }
+
+    static verb(action: ActionType): string {
+        switch (action) {
+            case ActionType.FORWARD: return 'forwarding';
+            case ActionType.IDENTIFY: return 'identifying';
+            case ActionType.PAUSE: return 'pausing';
+            case ActionType.PLAY: return 'playing';
+            case ActionType.RELOAD: return 'reloading';
+            case ActionType.REWIND: return 'rewinding';
+            default: return '';
+        }
+    }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 
-import { SnackBarService } from '@app/services';
 import { TV } from '@data/schemas';
 import { TVsService } from '@data/services';
 import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout/services';
@@ -31,7 +30,6 @@ export class TVsPageComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private tvsService: TVsService,
-    private snackBarService: SnackBarService,
     private actionsService: ActionsService
   ) { }
 
@@ -49,14 +47,17 @@ export class TVsPageComponent implements OnInit {
   reload() {
     this.errorSplash = null;
     this.tvs$ = null;
-    this.tvsService.getAll(true).subscribe(tvs => {
-      this.tvs$ = new BehaviorSubject<TV[]>(tvs);
-    }, err => {
-      const message = this.tvsService.extractMessage(err);
-      this.errorSplash = Splash.errorSplash(message, {
-        action: this.reload.bind(this),
-        title: 'Retry'
-      });
+    this.tvsService.getAll(true, false).subscribe({
+      next: (tvs: TV[]) => {
+        this.tvs$ = new BehaviorSubject<TV[]>(tvs);
+      },
+      error: err => {
+        const message = this.tvsService.extractMessage(err);
+        this.errorSplash = Splash.errorSplash(message, {
+          action: this.reload.bind(this),
+          title: 'Retry'
+        });
+      }
     });
   }
 
@@ -67,16 +68,15 @@ export class TVsPageComponent implements OnInit {
       data: {}
     }).afterClosed().subscribe(tv => {
       if (tv) {
-        this.tvsService.addOne(tv, true).subscribe(addedTV => {
-          const tvs = this.tvs$.value;
+        this.tvsService.addOne(tv, true).subscribe({
+          next: (addedTV: TV) => {
+            const tvs = this.tvs$.value;
 
-          tvs.push(addedTV);
+            tvs.push(addedTV);
 
-          this.tvs$.next(tvs);
-        }, err => {
-          const message = this.tvsService.extractMessage(err);
-
-          this.snackBarService.showError(`Error creating screen : ${message}`);
+            this.tvs$.next(tvs);
+          },
+          error: (_) => {} // Do nothing on error
         });
       }
     });

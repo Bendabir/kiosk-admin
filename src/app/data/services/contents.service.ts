@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { APIService } from '@app/services';
 
@@ -20,9 +20,19 @@ export class ContentsService extends APIService {
     return groups;
   }
 
-  getAll(): Observable<Content[]> {
+  getAll(notify: boolean = true): Observable<Content[]> {
     return this.http.get<Content[]>(this.endpoint).pipe(
-      map((response: any) => response.data)
+      map((response: any) => {
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error fetching contents : ${message}`);
+        }
+
+        return throwError(err);
+      })
     );
   }
 }

@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { BehaviorSubject, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
-import { SnackBarService } from '@app/services';
 import { Content, ContentType, Group, TV } from '@data/schemas';
 import { ContentsService, GroupsService } from '@data/services';
 
@@ -27,33 +25,28 @@ export class AddTVDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<AddTVDialogComponent>,
     private contentsService: ContentsService,
-    private groupsService: GroupsService,
-    private snackBarService: SnackBarService
+    private groupsService: GroupsService
   ) {
     this.tv = new TV();
-    this.contentsService.getAll().pipe(
-      catchError(err => {
-        const message = this.contentsService.extractMessage(err);
+    this.contentsByType$ = new BehaviorSubject(new Map([]));
+    this.groups$ = new BehaviorSubject([]);
+    this.contentsService.getAll().subscribe({
+      next: (contents: Content[]) => {
+        const grouped = ContentsService.groupContentsByType(contents);
 
-        this.snackBarService.showError(`Error fetching contents : ${message}`);
-
-        return of([]);
-      })
-    ).subscribe(contents => {
-      const grouped = ContentsService.groupContentsByType(contents);
-
-      this.contentsByType$ = new BehaviorSubject(grouped);
+        this.contentsByType$.next(grouped);
+      },
+      error: _ => {
+        this.contentsByType$.next(new Map([]));
+      }
     });
-    this.groupsService.getAll().pipe(
-      catchError(err => {
-        const message = this.groupsService.extractMessage(err);
-
-        this.snackBarService.showError(`Error fetching groups : ${message}`);
-
-        return of([]);
-      })
-    ).subscribe(groups => {
-      this.groups$ = new BehaviorSubject(groups);
+    this.groupsService.getAll().subscribe({
+      next: (groups: Group[]) => {
+        this.groups$.next(groups);
+      },
+      error: _ => {
+        this.groups$.next([]);
+      }
     });
   }
 

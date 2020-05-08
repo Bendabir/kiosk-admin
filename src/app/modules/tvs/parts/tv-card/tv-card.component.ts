@@ -1,5 +1,6 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { NextObserver, ErrorObserver } from 'rxjs';
 
 import { SnackBarService } from '@app/services';
 import { TV, ActionType } from '@data/schemas';
@@ -31,6 +32,11 @@ export class TVCardComponent {
   @HostBinding('class.deleted') public deleted = false;
   public playing = true;
 
+  // For observables callbacks
+  private doNothingOnError: ErrorObserver<any> = {
+    error: (_: any) => {}
+  };
+
   constructor(
     private dialog: MatDialog,
     private tvsService: TVsService,
@@ -47,38 +53,34 @@ export class TVCardComponent {
     }
   }
 
-  private handleError(topMessage: string, err: any) {
-    const message = this.tvsService.extractMessage(err);
-    const errorMessage = `${topMessage} '${this.tv.displayName}' : ${message}`;
-
-    this.snackBarService.showError(errorMessage);
-  }
-
   toggleActive() {
-    this.tvsService.updateOne(this.tv.flatten(), true).subscribe(tv => {
-      this.tv = tv;
+    // Custom messages for this call
+    this.tvsService.updateOne(this.tv.flatten(), true, false).subscribe({
+      next: (tv: TV) => {
+        this.tv = tv;
 
-      const verb = this.tv.active ? 'Enabled' : 'Disabled';
-      const message = `${verb} screen '${this.tv.displayName}'.`;
+        const verb = this.tv.active ? 'Enabled' : 'Disabled';
+        const message = `${verb} screen '${this.tv.displayName}'.`;
 
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error toggling screen'));
+        this.snackBarService.showInfo(message);
+      },
+      error: (err: any) => {
+        const verb = this.tv.active ? 'enabling' : 'disabling';
+        const message = this.tvsService.extractMessage(err);
+        this.snackBarService.showError(`Error ${verb} screen '${this.tv.displayName}' : ${message}`);
+
+        // Fixing the value
+        this.tv.active = !this.tv.active;
+      }
+    });
   }
 
   identify() {
-    this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).subscribe(_ => {
-      const message = `Identified screen '${this.tv.displayName}'.`;
-
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error identifying screen'));
+    this.tvsService.triggerAction(this.tv, ActionType.IDENTIFY).subscribe(this.doNothingOnError);
   }
 
   refresh() {
-    this.tvsService.triggerAction(this.tv, ActionType.RELOAD).subscribe(_ => {
-      const message = `Refreshed screen '${this.tv.displayName}'.`;
-
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error refreshing screen'));
+    this.tvsService.triggerAction(this.tv, ActionType.RELOAD).subscribe(this.doNothingOnError);
   }
 
   edit() {
@@ -91,11 +93,12 @@ export class TVCardComponent {
     }).afterClosed().subscribe(tv => {
       // Result if a flatten data (group and content are IDs)
       if (tv) {
-        this.tvsService.updateOne(tv, true).subscribe(updatedTV => {
+        this.tvsService.updateOne(tv, true).subscribe({
+          next: (updatedTV: TV) => {
             this.tv = updatedTV;
-
-            this.snackBarService.showInfo(`Edited screen '${this.tv.displayName}'.`);
-        }, this.handleError.bind(this, 'Error editing screen'));
+          },
+          error: this.doNothingOnError.error
+        });
       }
     });
   }
@@ -115,12 +118,12 @@ export class TVCardComponent {
       }
     }).afterClosed().subscribe(confirmation => {
       if (confirmation) {
-        this.tvsService.deleteOne(this.tv).subscribe(_ => {
-          // Not really deleting the data from the view, just hiding it
-          this.deleted = true;
-
-          this.snackBarService.showInfo(`Deleted screen '${this.tv.displayName}'.`);
-        }, this.handleError.bind(this, 'Error deleting screen'));
+        this.tvsService.deleteOne(this.tv).subscribe({
+          next: (deleted: boolean) => {
+            this.deleted = deleted;
+          },
+          error: this.doNothingOnError.error
+        });
       }
     });
   }
@@ -130,26 +133,14 @@ export class TVCardComponent {
 
     const action = this.playing ? ActionType.PLAY : ActionType.PAUSE;
 
-    this.tvsService.triggerAction(this.tv, action).subscribe(_ => {
-      const message = `${this.playing ? 'Played' : 'Paused'} screen '${this.tv.displayName}'.`;
-
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error playing/pausing screen'));
+    this.tvsService.triggerAction(this.tv, action).subscribe(this.doNothingOnError);
   }
 
   rewind() {
-    this.tvsService.triggerAction(this.tv, ActionType.REWIND).subscribe(_ => {
-      const message = `Rewinded screen '${this.tv.displayName}'.`;
-
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error rewinding screen'));
+    this.tvsService.triggerAction(this.tv, ActionType.REWIND).subscribe(this.doNothingOnError);
   }
 
   forward() {
-    this.tvsService.triggerAction(this.tv, ActionType.FORWARD).subscribe(_ => {
-      const message = `Forwarded screen '${this.tv.displayName}'.`;
-
-      this.snackBarService.showInfo(message);
-    }, this.handleError.bind(this, 'Error forwarding screen'));
+    this.tvsService.triggerAction(this.tv, ActionType.FORWARD).subscribe(this.doNothingOnError);
   }
 }
