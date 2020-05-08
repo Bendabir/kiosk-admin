@@ -60,9 +60,11 @@
     // Couldn't find a way to keep the 16:9 ratio
     // as the card size is dynamic
     height: $image-height;
+    margin-bottom: 16px;
 
     .mat-card-image {
         height: 100%;
+        margin-top: 0;
     }
 
     // Try to position the hover properly but that's a hack
@@ -74,6 +76,7 @@
         width: 100%;
         height: calc(#{$image-height} - 14px);
         color: white;
+        margin-top: 16px;
 
         display: flex;
         align-items: center;
