@@ -86,6 +86,7 @@
     position: -webkit-sticky;
     top: 0;
     z-index: 1000;
+    overflow-x: auto;
 }
 
 .actions-toolbar mat-divider {
