@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 
 import { MainLayoutComponent } from './main-layout.component';
-import { SettingsDialogComponent } from './dialogs/settings-dialog/settings-dialog.component';
+import { SettingsDialogComponent } from './dialogs';
+import { ActionsService } from './services';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,9 @@ import { SettingsDialogComponent } from './dialogs/settings-dialog/settings-dial
   exports: [],
   entryComponents: [
     SettingsDialogComponent
+  ],
+  providers: [
+    ActionsService
   ]
 })
 export class MainLayoutModule { }

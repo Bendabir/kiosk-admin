@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { SnackBarService } from '@app/services';
 import { TV } from '@data/schemas';
 import { TVsService } from '@data/services';
+import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout/services';
 import { Splash } from '@shared/models';
 
 import { AddTVDialogComponent } from '../../dialogs';
@@ -30,10 +31,18 @@ export class TVsPageComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private tvsService: TVsService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private actionsService: ActionsService
   ) { }
 
   ngOnInit() {
+    // Load the global actions to the toolbar
+    this.actionsService.actions = [
+      new ActionButton('add', 'Create screen', this.create.bind(this)),
+      new ActionDivider(),
+      new ActionButton('sync', 'Refresh', this.reload.bind(this))
+    ];
+
     this.reload();
   }
 
