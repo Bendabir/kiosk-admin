@@ -7,11 +7,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
 import { LabeledSliderComponent, LoaderComponent, SplashComponent } from './components';
 import { ConfirmationDialogComponent } from './dialogs';
-import { DurationPipe, OrNAPipe } from './pipes';
+import { BytesPipe, DurationPipe, OrNAPipe } from './pipes';
 
 
 @NgModule({
   declarations: [
+    BytesPipe,
     DurationPipe,
     OrNAPipe,
 
@@ -40,6 +41,7 @@ import { DurationPipe, OrNAPipe } from './pipes';
     MaterialModule,
     FlexLayoutModule,
 
+    BytesPipe,
     DurationPipe,
     OrNAPipe,
 
