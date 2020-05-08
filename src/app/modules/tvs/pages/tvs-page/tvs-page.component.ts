@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ErrorObserver } from 'rxjs';
 
-import { TV } from '@data/schemas';
+import { ActionType, TV } from '@data/schemas';
 import { TVsService } from '@data/services';
 import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout/services';
 import { Splash } from '@shared/models';
@@ -27,6 +27,11 @@ export class TVsPageComponent implements OnInit {
   errorSplash: Splash;
   tvs$: BehaviorSubject<TV[]>;
 
+  // For observables callbacks
+  private doNothingOnError: ErrorObserver<any> = {
+    error: (_: any) => {}
+  };
+
   constructor(
     private dialog: MatDialog,
     private tvsService: TVsService,
@@ -37,6 +42,9 @@ export class TVsPageComponent implements OnInit {
     // Load the global actions to the toolbar
     this.actionsService.actions = [
       new ActionButton('add', 'Create screen', this.create.bind(this)),
+      new ActionDivider(),
+      new ActionButton('refresh', 'Reload all screens', this.reloadAll.bind(this)),
+      new ActionButton('search', 'Identify all screens', this.identifyAll.bind(this)),
       new ActionDivider(),
       new ActionButton('sync', 'Refresh', this.reload.bind(this))
     ];
@@ -80,5 +88,13 @@ export class TVsPageComponent implements OnInit {
         });
       }
     });
+  }
+
+  identifyAll() {
+    this.tvsService.triggerActionAll(ActionType.IDENTIFY).subscribe(this.doNothingOnError);
+  }
+
+  reloadAll() {
+    this.tvsService.triggerActionAll(ActionType.RELOAD).subscribe(this.doNothingOnError)
   }
 }

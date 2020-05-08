@@ -121,4 +121,31 @@ export class TVsService extends APIService {
       })
     );
   }
+
+  triggerActionAll(action: ActionType, notify: boolean = true): Observable<Action> {
+    const url = `${this.endpoint}/actions`;
+    const parameters = Action.parameters(action, this.settingsService.settings);
+    const verb = Action.verb(action);
+
+    return this.http.post<Action>(url, {
+      action,
+      parameters
+    }).pipe(
+      map((response: any) => {
+        if (notify) {
+          this.snackBarService.showInfo(`${APIService.capitalize(verb)} all screens.`);
+        }
+
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error ${verb} all screens : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
 }
