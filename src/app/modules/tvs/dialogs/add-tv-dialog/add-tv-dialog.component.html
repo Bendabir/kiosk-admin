@@ -5,7 +5,8 @@
             <form>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
                     <mat-form-field fxFlex="33.33%">
-                        <input matInput #tvID maxLength="32" placeholder="ID" [(ngModel)]="tv.id" name="tv-id"/>
+                        <input matInput #tvID maxLength="32" placeholder="ID" [(ngModel)]="tv.id" name="tv-id" pattern="[a-zA-Z0-9\-_]+" required>
+                        <mat-hint><b>Alphanumeric.</b></mat-hint>
                         <mat-hint align="end">{{ tvID.value.length }} / 32</mat-hint>
                     </mat-form-field>
                     <mat-form-field fxFlex="66.67%">
