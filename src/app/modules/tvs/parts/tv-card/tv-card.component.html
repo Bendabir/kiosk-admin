@@ -5,18 +5,20 @@
         <div fxFlex></div>
         <mat-icon [matTooltip]="(tv.on) ? 'Running' : 'Down'" matTooltipPosition="left" [ngClass]="(tv.on) ? 'running-status' : 'down-status'">{{ (tv.on) ? 'cast_connected' : 'cast' }}</mat-icon>
     </mat-card-header>
-    <img mat-card-image [src]="tv.thumbnail()" />
-    <div *ngIf="tv.on && tv.active" class="hover-actions">
-        <div class="actions-wrapper">
-            <button mat-icon-button (click)="rewind()">
-                <mat-icon>fast_rewind</mat-icon>
-            </button>
-            <button mat-icon-button (click)="togglePlay()">
-                <mat-icon>{{ playing ? 'pause' : 'play_arrow' }}</mat-icon>
-            </button>
-            <button mat-icon-button (click)="forward()">
-                <mat-icon>fast_forward</mat-icon>
-            </button>
+    <div class="image-wrapper">
+        <img mat-card-image [src]="tv.thumbnail()" />
+        <div *ngIf="tv.on && tv.active" class="hover-actions">
+            <div class="actions-wrapper">
+                <button mat-icon-button (click)="rewind()">
+                    <mat-icon>fast_rewind</mat-icon>
+                </button>
+                <button mat-icon-button (click)="togglePlay()">
+                    <mat-icon>{{ playing ? 'pause' : 'play_arrow' }}</mat-icon>
+                </button>
+                <button mat-icon-button (click)="forward()">
+                    <mat-icon>fast_forward</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
     <mat-card-content>

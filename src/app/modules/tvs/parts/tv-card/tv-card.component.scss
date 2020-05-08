@@ -53,58 +53,72 @@
     color: mat-color($mat-green, 500);
 }
 
-$image-height: 45%;
 
-.mat-card-image {
+.image-wrapper {
+    $image-height: 45%;
+
     // Couldn't find a way to keep the 16:9 ratio
     // as the card size is dynamic
     height: $image-height;
+
+    .mat-card-image {
+        height: 100%;
+    }
+
+    // Try to position the hover properly but that's a hack
+    .hover-actions {
+        background: rgba(0, 0, 0, 0.25);
+        position: absolute;
+        top: 90px - 30px;
+        left: 0;
+        width: 100%;
+        height: calc(#{$image-height} - 14px);
+        color: white;
+
+        display: flex;
+        align-items: center;
+
+        $transition-duration: 450ms;
+        opacity: 0;
+        -webkit-transition: opacity $transition-duration ease-in-out;
+        -moz-transition: opacity $transition-duration ease-in-out;
+        -ms-transition: opacity $transition-duration ease-in-out;
+        -o-transition: opacity $transition-duration ease-in-out;
+        transition: opacity $transition-duration ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .actions-wrapper {
+            width: 100%;
+            text-align: center;
+            position: relative;
+
+            .mat-icon-button:nth-child(2) {
+                $margin: 16px * 2;
+
+                margin-left: $margin;
+                margin-right: $margin;
+            }
+
+            .mat-icon-button {
+                transform: scale(2);
+            }
+        }
+    }
+}
+
+@include screen(xs) {
+    .image-wrapper {
+        height: 250px;
+
+        .hover-actions {
+            height: inherit;
+        }
+    }
 }
 
 :host(.deleted) {
     display: none;
-}
-
-// Try to position the hover properly but that's a hack
-.hover-actions {
-    $mat-card-padding: 16px - 2 * 1px;
-
-    background: rgba(0, 0, 0, 0.25);
-    position: absolute;
-    top: 90px - $mat-card-padding;
-    left: 0;
-    width: 100%;
-    height: calc(#{$image-height} - #{$mat-card-padding});
-    color: white;
-
-    display: flex;
-    align-items: center;
-
-    $transition-duration: 450ms;
-    opacity: 0;
-    -webkit-transition: opacity $transition-duration ease-in-out;
-    -moz-transition: opacity $transition-duration ease-in-out;
-    -ms-transition: opacity $transition-duration ease-in-out;
-    -o-transition: opacity $transition-duration ease-in-out;
-    transition: opacity $transition-duration ease-in-out;
-
-    &:hover {
-        opacity: 1;
-    }
-
-    .actions-wrapper {
-        width: 100%;
-        text-align: center;
-
-        .mat-icon-button:nth-child(2) {
-            $margin: 16px * 2;
-
-            margin-left: $margin;
-            margin-right: $margin;
-        }
-
-        .mat-icon-button {
-            transform: scale(2);
-        }
-    }
 }
