@@ -22,18 +22,18 @@ const routes: Routes = [{
     pathMatch: 'full'
   }, {
     path: 'screens',
-    loadChildren: () => import('@modules/tvs/tvs.module').then(m => m.TVsModule)
+    loadChildren: () => import('@modules/tvs').then(m => m.TVsModule)
   }, {
     path: 'groups',
-    loadChildren: () => import('@modules/groups/groups.module').then(m => m.GroupsModule)
+    loadChildren: () => import('@modules/groups').then(m => m.GroupsModule)
   }, {
     path: 'files',
-    loadChildren: () => import('@modules/files/files.module').then(m => m.FilesModule)
+    loadChildren: () => import('@modules/files').then(m => m.FilesModule)
   }]
 }, {
   path: 'auth',
   component: AuthLayoutComponent,
-  loadChildren: () => import('@modules/auth/auth.module').then(m => m.AuthModule)
+  loadChildren: () => import('@modules/auth').then(m => m.AuthModule)
 }, {
   // Fallback when no prior routes is matched
   path: '**',
