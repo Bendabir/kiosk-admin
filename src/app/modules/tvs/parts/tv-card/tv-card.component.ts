@@ -1,6 +1,6 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { NextObserver, ErrorObserver } from 'rxjs';
+import { ErrorObserver } from 'rxjs';
 
 import { SnackBarService } from '@app/services';
 import { TV, ActionType } from '@data/schemas';

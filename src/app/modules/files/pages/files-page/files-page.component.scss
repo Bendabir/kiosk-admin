@@ -1,0 +1,41 @@
+@import 'mixins';
+
+$transition-duration: 225ms;
+
+.mat-list-item {
+    p {
+        color: rgba(0, 0, 0, 0.54);
+    }
+
+    .actions {
+        display: inline-flex;
+        opacity: 0;
+
+        -webkit-transition: opacity $transition-duration ease-in-out;
+        -moz-transition: opacity $transition-duration ease-in-out;
+        -ms-transition: opacity $transition-duration ease-in-out;
+        -o-transition: opacity $transition-duration ease-in-out;
+        transition: opacity $transition-duration ease-in-out;
+    }
+
+    &:hover .actions {
+        opacity: 1;
+    }
+}
+
+@include screen(xs) {
+    .mat-list-item {
+        .actions {
+            width: 0;
+            -webkit-transition: width $transition-duration ease-in-out;
+            -moz-transition: width $transition-duration ease-in-out;
+            -ms-transition: width $transition-duration ease-in-out;
+            -o-transition: width $transition-duration ease-in-out;
+            transition: width $transition-duration ease-in-out;
+        }
+
+        &:hover .actions {
+            width: 120px;
+        }
+    }
+}
