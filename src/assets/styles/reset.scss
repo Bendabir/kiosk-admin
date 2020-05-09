@@ -23,6 +23,7 @@ body {
 .mat-stroked-button,
 .mat-flat-button {
     text-transform: uppercase;
+    border-radius: $radius !important;
 }
 
 .mat-dialog-container {
