@@ -1,0 +1,43 @@
+@import 'variables';
+
+.file-input {
+    $height: 59.5px;
+
+    height: $height;
+    border-radius: $radius;
+
+    input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .mat-button {
+        height: 100%;
+        width: 100%;
+        text-align: left;
+        z-index: 10;
+    }
+
+    .selected-file {
+        position: absolute;
+        height: $height;
+        align-items: center;
+        padding-right: 16px;
+        line-height: $height;
+        transform: translateX(-100%);
+        z-index: 5;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    // label {
+    //     line-height: $height;
+    //     text-transform: uppercase;
+    // }
+}

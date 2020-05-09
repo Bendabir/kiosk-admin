@@ -10,7 +10,7 @@ import { File } from '../schemas';
 @Injectable()
 export class FilesService extends APIService {
   private endpoint = `${this.baseRoute}/files`;
-  private filesEndpoint = `http://${env.server.host}:${env.server.port}/files`;
+  private filesEndpoint = `http://${env.server.host}:${env.server.port}/${env.server.routes.files}`;
 
   getAll(notify: boolean = true): Observable<File[]> {
     return this.http.get<File[]>(this.endpoint).pipe(
@@ -21,6 +21,36 @@ export class FilesService extends APIService {
         if (notify) {
           const message = this.extractMessage(err);
           this.snackBarService.showError(`Error fetching files : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
+
+  uploadOne(file: globalThis.File, notify: boolean = true): Observable<File> {
+    if (file.size > env.server.maxFileSize) {
+      const message = 'File is too big.';
+
+      if (notify) {
+        this.snackBarService.showError(`Error uploading file '${file.name}' : ${message}`);
+      }
+
+      return throwError(new Error(message));
+    }
+
+    const formData = new FormData();
+
+    formData.append('file', file, file.name);
+
+    return this.http.post(this.filesEndpoint, formData).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error uploading file '${file.name}' : ${message}`);
         }
 
         return throwError(err); // Let subscribers decide what to do with errors

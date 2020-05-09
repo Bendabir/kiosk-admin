@@ -5,12 +5,16 @@ import { SharedModule } from '@shared/shared.module';
 
 import { FilesRoutingModule } from './files-routing.module';
 import { FilesPageComponent } from './pages';
+import { UploadFileDialogComponent } from './dialogs';
 
 
 @NgModule({
   declarations: [
     // Pages
-    FilesPageComponent
+    FilesPageComponent,
+
+    // Dialogs
+    UploadFileDialogComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +24,8 @@ import { FilesPageComponent } from './pages';
   ],
   exports: [],
   providers: [],
-  entryComponents: []
+  entryComponents: [
+    UploadFileDialogComponent
+  ]
 })
 export class FilesModule { }

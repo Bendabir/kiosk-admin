@@ -9,6 +9,7 @@ import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout
 import { Splash } from '@shared/models';
 import { ConfirmationDialogComponent } from '@shared/dialogs';
 
+import { UploadFileDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-files-page',
@@ -71,7 +72,23 @@ export class FilesPageComponent implements OnInit {
   }
 
   upload() {
-    console.log('TODO : File upload');
+    this.dialog.open(UploadFileDialogComponent, {
+      width: '640px',
+      autoFocus: false
+    }).afterClosed().subscribe(file => {
+      if (file) {
+        this.filesService.uploadOne(file).subscribe({
+          next: (uploadedFile: File) => {
+            const files = this.files$.value;
+
+            files.push(uploadedFile);
+
+            this.files$.next(files);
+          },
+          error: this.doNothingOnError.error
+        });
+      }
+    });
   }
 
   delete(file: File) {

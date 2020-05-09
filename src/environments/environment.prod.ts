@@ -11,6 +11,7 @@ export const environment = {
     routes: {
       api: 'api',
       files: 'files'
-    }
+    },
+    maxFileSize: 2 * 1024 * 1024
   }
 };

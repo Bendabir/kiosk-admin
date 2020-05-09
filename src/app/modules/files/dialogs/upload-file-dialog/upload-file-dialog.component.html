@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Upload a new file</h1>
+<div mat-dialog-content>
+    <p>Upload some files to use them as contents later on screens. <b>As of now, only GIF, JPEG and PNG images are accepted.</b> Size is limited to {{ MAX_SIZE | bytes }}.</p>
+
+    <form #editForm="ngForm">
+        <div class="file-input">
+            <input #file placeholder="File" name="file" type="file" accept="image/png, image/jpeg, image/gif" (change)="handleFileInput($event.target.files)"/>
+            <button mat-button (click)="file.click()">Choose a file</button>
+            <span class="selected-file" [class.italic]="!fileToUpload">{{ filename }}</span>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="accent" [mat-dialog-close]="fileToUpload">Upload</button>
+</div>

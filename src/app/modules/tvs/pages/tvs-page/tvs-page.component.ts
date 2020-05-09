@@ -71,8 +71,7 @@ export class TVsPageComponent implements OnInit {
   create() {
     this.dialog.open(AddTVDialogComponent, {
       width: '640px',
-      autoFocus: false,
-      data: {}
+      autoFocus: false
     }).afterClosed().subscribe(tv => {
       if (tv) {
         this.tvsService.addOne(tv, true).subscribe({
