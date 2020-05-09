@@ -5,7 +5,7 @@
     $foreground: map-get($theme, foreground);
 
     .mat-card-content div.details {
-        color: mat-color($foreground, secondary-text)
+        color: mat-color($foreground, secondary-text);
     }
 
     .mat-card-content div.details span.info:hover {

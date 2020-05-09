@@ -1,0 +1,7 @@
+@mixin files-page-component-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .mat-list-item p {
+        color: mat-color($foreground, secondary-text);
+    }
+}
