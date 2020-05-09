@@ -28,13 +28,13 @@ export class FilesPageComponent implements OnInit {
   };
   errorSplash: Splash;
   files$: BehaviorSubject<File[]>;
+  private sortedAscending = true;
 
   // For observables callbacks
   private doNothingOnError: ErrorObserver<any> = {
     error: (_: any) => {}
   };
 
-  // TODO : Sort actions
   // TODO : Create content from file
 
   constructor(
@@ -45,6 +45,8 @@ export class FilesPageComponent implements OnInit {
   ) {
     this.actionsService.actions = [
       new ActionButton('cloud_upload', 'Upload file', this.upload.bind(this)),
+      new ActionDivider(),
+      new ActionButton('sort_by_alpha', 'Toggle ascending sort', this.toggleSort.bind(this)),
       new ActionDivider(),
       new ActionButton('sync', 'Refresh', this.reload.bind(this))
     ];
@@ -59,7 +61,13 @@ export class FilesPageComponent implements OnInit {
     this.files$ = null;
     this.filesService.getAll(false).subscribe({
       next: (files: File[]) => {
-        this.files$ = new BehaviorSubject<File[]>(files);
+        const sortedFiles = files.sort(File.comparer);
+
+        if (this.sortedAscending) {
+          this.files$ = new BehaviorSubject<File[]>(sortedFiles);
+        } else {
+          this.files$ = new BehaviorSubject<File[]>(sortedFiles.reverse());
+        }
       },
       error: err => {
         const message = this.filesService.extractMessage(err);
@@ -136,5 +144,10 @@ export class FilesPageComponent implements OnInit {
     document.body.removeChild(box);
 
     this.snackBarService.showInfo('Copied link to clipboard !');
+  }
+
+  toggleSort() {
+    this.sortedAscending = !this.sortedAscending;
+    this.files$.next(this.files$.value.reverse());
   }
 }
