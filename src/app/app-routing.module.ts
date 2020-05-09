@@ -24,6 +24,9 @@ const routes: Routes = [{
     path: 'screens',
     loadChildren: () => import('@modules/tvs/tvs.module').then(m => m.TVsModule)
   }, {
+    path: 'groups',
+    loadChildren: () => import('@modules/groups/groups.module').then(m => m.GroupsModule)
+  }, {
     path: 'files',
     loadChildren: () => import('@modules/files/files.module').then(m => m.FilesModule)
   }]
