@@ -7,7 +7,7 @@
         </mat-card-title>
         <mat-card-subtitle *ngIf="uri" [class.clickable]="uri" (click)="link.click()" matTooltip="Open content in new tab">{{ uri }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!uri"></mat-card-subtitle>
-        <a *ngIf="uri" [href]="uri" target="_blank" #link></a>
+        <a [href]="uri" target="_blank" #link></a>
     </div>
     <div class="description" [class.italic]="!content.description">
         {{ content.description ? content.description : 'No description.' }}
