@@ -56,7 +56,7 @@ export class TVsService extends APIService {
     return this.http.patch<TV>(url, tv).pipe(
       map((response: any) => {
         if (notify) {
-          this.snackBarService.showInfo(`Edited screen '${tv.displayName}'.`)
+          this.snackBarService.showInfo(`Edited screen '${tv.displayName}'.`);
         }
 
         return response.data;

@@ -60,3 +60,7 @@
         }
     }
 }
+
+:host(.deleted) {
+    display: none;
+}

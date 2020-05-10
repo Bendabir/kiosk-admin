@@ -1,6 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ErrorObserver } from 'rxjs';
 
 import { Content, ContentType, TV } from '@data/schemas';
+import { ContentsService } from '@data/services';
+import { ConfirmationDialogComponent } from '@shared/dialogs';
+
+import { EditContentDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-content-card',
@@ -19,7 +25,17 @@ export class ContentCardComponent {
     this._content = Object.assign(new Content(), content);
   }
 
-  constructor() { }
+  @HostBinding('class.deleted') public deleted = false;
+
+  // For observables callbacks
+  private doNothingOnError: ErrorObserver<any> = {
+    error: (_: any) => {}
+  };
+
+  constructor(
+    private dialog: MatDialog,
+    private contentsService: ContentsService
+  ) { }
 
   get thumbnail(): string {
     return this.content.thumbnail ? this.content.thumbnail : TV.NO_THUMBNAIL_PATH;
@@ -33,10 +49,46 @@ export class ContentCardComponent {
   }
 
   edit() {
-    console.log('TODO : Content edition');
+    this.dialog.open(EditContentDialogComponent, {
+      width: '640px',
+      autoFocus: false,
+      data: {
+        content: this.content
+      }
+    }).afterClosed().subscribe(content => {
+      if (content) {
+        this.contentsService.updateOne(content).subscribe({
+          next: (updatedContent: Content) => {
+            this.content = updatedContent;
+          },
+          error: this.doNothingOnError.error
+        });
+      }
+    });
   }
 
   delete() {
-    console.log('TODO : Content deletion');
+    this.dialog.open(ConfirmationDialogComponent, {
+      width: '640px',
+      autoFocus: false,
+      data: {
+        title: 'Delete content',
+        titleAccent: this.content.displayName,
+        message: 'You\'re about to delete this content forever, which is a long time. Are you willing to continue ?',
+        button: {
+          color: 'warn',
+          title: 'Delete'
+        }
+      }
+    }).afterClosed().subscribe(confirmation => {
+      if (confirmation) {
+        this.contentsService.deleteOne(this.content).subscribe({
+          next: (deleted: boolean) => {
+            this.deleted = deleted;
+          },
+          error: this.doNothingOnError.error
+        });
+      }
+    });
   }
 }

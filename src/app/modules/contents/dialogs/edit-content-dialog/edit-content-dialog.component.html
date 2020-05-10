@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Edit content <i>{{ content.displayName }}</i></h1>
+<div mat-dialog-content>
+    <form #editForm="ngForm">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="100%">
+                <input matInput #displayName maxLength="64" placeholder="Display name" [(ngModel)]="content.displayName" name="display-name"/>
+                <mat-hint align="end">{{ displayName.value.length }} / 64</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+            <mat-form-field fxFlex="100%">
+                <textarea matInput class="description" placeholder="Description" rows="4" [(ngModel)]="content.description" name="description"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="accent" [mat-dialog-close]="content" [disabled]="editForm.invalid">Edit</button>
+</div>

@@ -58,6 +58,28 @@ export class ContentsService extends APIService {
     );
   }
 
+  updateOne(content: Content, notify: boolean = true): Observable<Content> {
+    const url = `${this.endpoint}/${content.id}`;
+
+    return this.http.patch<Content>(url, content).pipe(
+      map((response: any) => {
+        if (notify) {
+          this.snackBarService.showInfo(`Edited content '${content.displayName}'.`);
+        }
+
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error editing content '${content.displayName}' : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
+
   deleteOne(content: Content, notify: boolean = true): Observable<boolean> {
     const url = `${this.endpoint}/${content.id}`;
 
