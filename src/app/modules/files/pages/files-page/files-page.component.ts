@@ -44,7 +44,7 @@ export class FilesPageComponent implements OnInit {
     private actionsService: ActionsService
   ) {
     this.actionsService.actions = [
-      new ActionButton('cloud_upload', 'Upload file', this.upload.bind(this)),
+      new ActionButton('add', 'Upload file', this.upload.bind(this)),
       new ActionDivider(),
       new ActionButton('sort_by_alpha', 'Toggle ascending sort', this.toggleSort.bind(this)),
       new ActionDivider(),

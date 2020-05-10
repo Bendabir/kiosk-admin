@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'mixins';
+
+.mat-tab-group {
+    height: 100%;
+
+    ::ng-deep .mat-tab-body-wrapper {
+        height: 100%;
+    }
+
+    ::ng-deep .mat-tab-body-content {
+        overflow-y: auto;
+    }
+}
+
+.content {
+    padding-top: $gutter;
+    padding-left: $gutter;
+    padding-right: 0;
+
+    .content-card {
+        margin-bottom: $gutter;
+    }
+}
+
+@include screen(xs) {
+    .content {
+        padding-right: $gutter;
+    }
+}

@@ -1,1 +1,20 @@
-<p>contents-page works!</p>
+<mat-tab-group dynamicHeight mat-stretch-tabs animationDuration="0ms" headerPosition="below" (selectedTabChange)="onTabChanged($event)">
+    <mat-tab *ngFor="let t of tabs" [label]="t">
+        <ng-template matTabContent>
+            <ng-container *ngIf="contents$ | async as contents; else loadingOrError">
+                <app-splash *ngIf="!contents.length" [splash]="noContentSplash"></app-splash>
+                <div *ngIf="contents.length" class="content">
+                    <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="24px">
+                        <app-content-card *ngFor="let c of contents" [content]="c" class="content-card" fxFlex.sm="0 1 calc(50%-24px)" fxFlex.md="0 1 calc(50%-24px)" fxFlex.lg="0 1 calc(50%-24px)" fxFlex.xl="0 1 calc(33.33%-24px)"></app-content-card>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #loadingOrError>
+                <app-splash *ngIf="errorSplash" [splash]="errorSplash"></app-splash>
+                <app-loader *ngIf="!errorSplash"></app-loader>
+            </ng-template>
+            <!-- </div> -->
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

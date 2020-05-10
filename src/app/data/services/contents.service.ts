@@ -35,4 +35,48 @@ export class ContentsService extends APIService {
       })
     );
   }
+
+  getAllByType(type: ContentType, notify: boolean = true): Observable<Content[]> {
+    if (!type) {
+      return this.getAll(notify);
+    }
+
+    const url = `${this.endpoint}?type=${type}`;
+
+    return this.http.get<Content[]>(url).pipe(
+      map((response: any) => {
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error fetching contents : ${message}`);
+        }
+
+        return throwError(err);
+      })
+    );
+  }
+
+  deleteOne(content: Content, notify: boolean = true): Observable<boolean> {
+    const url = `${this.endpoint}/${content.id}`;
+
+    return this.http.delete<void>(url).pipe(
+      map(_ => {
+        if (notify) {
+          this.snackBarService.showInfo(`Deleted content '${content.displayName}'.`);
+        }
+
+        return true;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error deleting content '${content.displayName}' : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
 }
