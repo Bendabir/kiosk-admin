@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -12,7 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -95,4 +96,14 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatStepperModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'youtube',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/youtube.svg')
+    );
+  }
+}

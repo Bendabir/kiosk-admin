@@ -3,7 +3,8 @@
     <div class="header">
         <mat-card-title>
             {{ content.displayName }}
-            <mat-icon [matTooltip]="content.prettifiedType">{{ content.icon }}</mat-icon>
+            <mat-icon *ngIf="!content.icon.isCustom" [matTooltip]="content.prettifiedType">{{ content.icon.name }}</mat-icon>
+            <mat-icon *ngIf="content.icon.isCustom" [matTooltip]="content.prettifiedType" [svgIcon]="content.icon.name"></mat-icon>
         </mat-card-title>
         <mat-card-subtitle *ngIf="uri" [class.clickable]="uri" (click)="link.click()" matTooltip="Open content in new tab">{{ uri }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!uri"></mat-card-subtitle>

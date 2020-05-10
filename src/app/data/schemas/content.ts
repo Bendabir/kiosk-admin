@@ -7,6 +7,11 @@ export enum ContentType {
     YOUTUBE = 'youtube'
 }
 
+interface ContentIcon {
+    name: string;
+    isCustom: boolean;
+}
+
 export class Content {
     static ACTIVATED_TYPES: ContentType[] = Object.values(ContentType).filter(t => t !== ContentType.PLAYLIST);
 
@@ -33,14 +38,32 @@ export class Content {
         }
     }
 
-    get icon(): string {
+    get icon(): ContentIcon {
         switch (this.type) {
-            case ContentType.IMAGE: return 'image';
-            case ContentType.PLAYLIST: return 'playlist_play';
-            case ContentType.TEXT: return 'notes';
-            case ContentType.VIDEO: return 'movie';
-            case ContentType.WEBPAGE: return 'web_asset';
-            case ContentType.YOUTUBE: return 'movie';
+            case ContentType.IMAGE: return {
+                name: 'image',
+                isCustom: false
+            };
+            case ContentType.PLAYLIST: return {
+                name: 'playlist_play',
+                isCustom: false
+            };
+            case ContentType.TEXT: return {
+                name: 'notes',
+                isCustom: false
+            };
+            case ContentType.VIDEO: return {
+                name: 'movie',
+                isCustom: false
+            };
+            case ContentType.WEBPAGE: return {
+                name: 'web_asset',
+                isCustom: false
+            };
+            case ContentType.YOUTUBE: return {
+                name: 'youtube',
+                isCustom: true
+            };
         }
     }
 
