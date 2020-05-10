@@ -1,0 +1,69 @@
+.mat-card {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: 50;
+
+    .thumbnail {
+        width: 192px;
+        height: 108px;
+        float: left;
+        margin-right: 16px;
+    }
+
+    .header {
+        .mat-card-title .mat-icon {
+            float: right;
+            margin-top: -4px;
+        }
+
+        .mat-card-subtitle {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 20px;
+            max-width: 500px;
+
+            &.clickable:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        a {
+            display: none;
+        }
+    }
+
+    .description {
+        text-align: justify;
+        height: 40px;
+        overflow-y: auto;
+
+        &.italic {
+            font-style: italic;
+        }
+    }
+
+    .mat-card-actions {
+        margin-top: 8px;
+
+        .details {
+            span {
+                line-height: 40px;
+            }
+
+            .info {
+                &:first-child {
+                    padding-left: 8px;
+                }
+            }
+
+            .dash {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+    }
+}

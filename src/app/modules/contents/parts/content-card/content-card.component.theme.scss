@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+
+// Customize the style (according to the theme)
+@mixin content-card-component-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .mat-card-actions .details {
+        span {
+            color: mat-color($foreground, secondary-text);
+        }
+
+        .info:hover {
+            color: mat-color($foreground, text);
+        }
+    }
+}

@@ -30,4 +30,19 @@ export class Content {
             default: return 'Unknown';
         }
     }
+
+    get icon(): string {
+        switch (this.type) {
+            case ContentType.IMAGE: return 'image';
+            case ContentType.PLAYLIST: return 'playlist_play';
+            case ContentType.TEXT: return 'notes';
+            case ContentType.VIDEO: return 'movie';
+            case ContentType.WEBPAGE: return 'web_asset';
+            case ContentType.YOUTUBE: return 'movie';
+        }
+    }
+
+    get prettifiedType(): string {
+        return Content.prettifyType(this.type);
+    }
 }

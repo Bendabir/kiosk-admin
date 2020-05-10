@@ -4,7 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'duration'
 })
 export class DurationPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number | null): string {
+    if (value === null) {
+      return 'N/A';
+    }
+
     const date = new Date(null);
     date.setSeconds(value);
 

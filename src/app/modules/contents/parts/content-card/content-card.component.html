@@ -1,0 +1,29 @@
+<mat-card>
+    <img class="thumbnail" [src]="thumbnail" />
+    <div class="header">
+        <mat-card-title>
+            {{ content.displayName }}
+            <mat-icon [matTooltip]="content.prettifiedType">{{ content.icon }}</mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle *ngIf="uri" [class.clickable]="uri" (click)="link.click()" matTooltip="Open content in new tab">{{ uri }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!uri"></mat-card-subtitle>
+        <a *ngIf="uri" [href]="uri" target="_blank" #link></a>
+    </div>
+    <div class="description" [class.italic]="!content.description">
+        {{ content.description ? content.description : 'No description.' }}
+    </div>
+    <mat-card-actions>
+        <div class="details">
+            <span class="info" matTooltip="Duration" matTooltipPosition="above">{{ content.duration | duration }}</span>
+            <span class="dash">&ndash;</span>
+            <span class="info" matTooltip="MIME type" matTooltipPosition="above">{{ content.mimeType | orNA }}</span>
+        </div>
+        <div fxFlex></div>
+        <button mat-icon-button matTooltip="Edit" matTooltipPosition="above" (click)="edit()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Delete" matTooltipPosition="above" color="warn" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

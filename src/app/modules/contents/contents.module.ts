@@ -5,12 +5,16 @@ import { SharedModule } from '@shared/shared.module';
 
 import { ContentsRoutingModule } from './contents-routing.module';
 import { ContentsPageComponent } from './pages';
+import { ContentCardComponent } from './parts';
 
 
 @NgModule({
   declarations: [
     // Pages
-    ContentsPageComponent
+    ContentsPageComponent,
+
+    // Parts
+    ContentCardComponent
   ],
   imports: [
     CommonModule,
