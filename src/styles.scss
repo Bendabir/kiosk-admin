@@ -16,7 +16,6 @@
 @import 'app/layout/main-layout/main-layout.component.theme.scss';
 @import 'app/modules/tvs/parts/tv-card/tv-card.component.theme.scss';
 @import 'app/modules/files/pages/files-page/files-page.component.theme.scss';
-@import 'app/modules/contents/parts/content-card/content-card.component.theme.scss';
 
 @mixin custom-components-theme($theme) {
     @include kiosk-reset-theme($theme);
@@ -25,7 +24,6 @@
     @include splash-component-theme($theme);
     @include labeled-slider-component-theme($theme);
     @include files-page-component-theme($theme);
-    @include content-card-component-theme($theme);
 }
 
 .kiosk-light-theme {

@@ -13,11 +13,10 @@
         {{ content.description ? content.description : 'No description.' }}
     </div>
     <mat-card-actions>
-        <div class="details">
-            <span class="info" matTooltip="Duration" matTooltipPosition="above">{{ content.duration | duration }}</span>
-            <span class="dash">&ndash;</span>
-            <span class="info" matTooltip="MIME type" matTooltipPosition="above">{{ content.mimeType | orNA }}</span>
-        </div>
+        <mat-chip-list>
+            <mat-chip matTooltip="Duration" disableRipple [disabled]="!content.duration">{{ content.duration | duration }}</mat-chip>
+            <mat-chip matTooltip="MIME Type" disableRipple [disabled]="!content.mimeType">{{ content.mimeType | orNA }}</mat-chip>
+        </mat-chip-list>
         <div fxFlex></div>
         <button mat-icon-button matTooltip="Edit" matTooltipPosition="above" (click)="edit()">
             <mat-icon>edit</mat-icon>
