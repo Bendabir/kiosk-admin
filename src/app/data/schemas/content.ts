@@ -7,7 +7,7 @@ export enum ContentType {
     YOUTUBE = 'youtube'
 }
 
-interface ContentIcon {
+export interface ContentIcon {
     name: string;
     isCustom: boolean;
 }
@@ -38,8 +38,8 @@ export class Content {
         }
     }
 
-    get icon(): ContentIcon {
-        switch (this.type) {
+    static icon(type: ContentType): ContentIcon {
+        switch (type) {
             case ContentType.IMAGE: return {
                 name: 'image',
                 isCustom: false
@@ -65,6 +65,10 @@ export class Content {
                 isCustom: true
             };
         }
+    }
+
+    get icon(): ContentIcon {
+        return Content.icon(this.type);
     }
 
     get prettifiedType(): string {

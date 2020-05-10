@@ -1,5 +1,11 @@
 <mat-tab-group dynamicHeight mat-stretch-tabs animationDuration="0ms" headerPosition="below" (selectedTabChange)="onTabChanged($event)">
-    <mat-tab *ngFor="let t of tabs" [label]="t">
+    <mat-tab *ngFor="let t of types">
+        <ng-template mat-tab-label>
+            <mat-icon *ngIf="!tabIcon(t).isCustom" class="tab-icon">{{ tabIcon(t).name }}</mat-icon>
+            <mat-icon *ngIf="tabIcon(t).isCustom" class="tab-icon" [svgIcon]="tabIcon(t).name"></mat-icon>
+            {{ prettifyType(t) }}
+        </ng-template>
+
         <ng-template matTabContent>
             <ng-container *ngIf="contents$ | async as contents; else loadingOrError">
                 <app-splash *ngIf="!contents.length" [splash]="noContentSplash"></app-splash>

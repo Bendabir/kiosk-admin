@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 
-import { Content, ContentType } from '@data/schemas';
+import { Content, ContentType, ContentIcon } from '@data/schemas';
 import { ContentsService } from '@data/services';
 import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout/services';
 import { Splash } from '@shared/models';
@@ -13,8 +13,7 @@ import { Splash } from '@shared/models';
   styleUrls: ['./contents-page.component.scss']
 })
 export class ContentsPageComponent implements OnInit {
-  private _types = Content.ACTIVATED_TYPES;
-  tabs = this._types.map(Content.prettifyType);
+  types = Content.ACTIVATED_TYPES;
   currentTab = ContentType.IMAGE;
   noContentSplash: Splash = {
     icon: 'subscriptions',
@@ -43,8 +42,16 @@ export class ContentsPageComponent implements OnInit {
     this.reload();
   }
 
+  tabIcon(type: ContentType): ContentIcon {
+    return Content.icon(type);
+  }
+
+  prettifyType(type: ContentType): string {
+    return Content.prettifyType(type);
+  }
+
   onTabChanged(event: MatTabChangeEvent) {
-    this.currentTab = this._types[event.index];
+    this.currentTab = this.types[event.index];
     this.reload();
   }
 
