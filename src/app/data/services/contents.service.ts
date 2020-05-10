@@ -11,7 +11,7 @@ export class ContentsService extends APIService {
   private endpoint = `${this.baseRoute}/contents`;
 
   static groupContentsByType(contents: Content[]): Map<ContentType, Content[]> {
-    const groups = new Map<ContentType, Content[]>(Object.values(ContentType).map((type: ContentType) => {
+    const groups = new Map<ContentType, Content[]>(Content.ACTIVATED_TYPES.map((type: ContentType) => {
       return [type, []];
     }));
 

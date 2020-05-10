@@ -8,6 +8,8 @@ export enum ContentType {
 }
 
 export class Content {
+    static ACTIVATED_TYPES: ContentType[] = Object.values(ContentType).filter(t => t !== ContentType.PLAYLIST);
+
     id: string;
     displayName: string;
     description: string | null;

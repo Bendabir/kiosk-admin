@@ -13,7 +13,7 @@ import { Splash } from '@shared/models';
   styleUrls: ['./contents-page.component.scss']
 })
 export class ContentsPageComponent implements OnInit {
-  private _types = Object.values(ContentType).filter(t => t !== ContentType.PLAYLIST);
+  private _types = Content.ACTIVATED_TYPES;
   tabs = this._types.map(Content.prettifyType);
   currentTab = ContentType.IMAGE;
   noContentSplash: Splash = {
