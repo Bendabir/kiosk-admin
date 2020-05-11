@@ -16,7 +16,7 @@
     <mat-card-actions>
         <mat-chip-list>
             <mat-chip matTooltip="Duration" disableRipple [disabled]="!content.duration">{{ content.duration | duration }}</mat-chip>
-            <mat-chip matTooltip="MIME Type" disableRipple [disabled]="!content.mimeType">{{ content.mimeType | orNA }}</mat-chip>
+            <mat-chip *ngIf="content.mimeType" matTooltip="MIME Type" disableRipple [disabled]="!content.mimeType">{{ content.mimeType | orNA }}</mat-chip>
         </mat-chip-list>
         <div fxFlex></div>
         <button mat-icon-button matTooltip="Edit" matTooltipPosition="above" (click)="edit()">
