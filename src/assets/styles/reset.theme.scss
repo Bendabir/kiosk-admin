@@ -76,9 +76,15 @@
         color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
     }
 
-    .mat-form-field.mat-focused {
-        .mat-form-field-ripple {
-            background-color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
-        }
+    .mat-form-field.mat-focused .mat-form-field-ripple {
+        background-color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+    }
+
+    .mat-form-field:hover .mat-form-field-ripple {
+        background-color: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+        height: 2px !important;
+        opacity: 1;
+        transform: scaleX(1);
+        transition: transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1);
     }
 }
