@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material';
+import { MatDialog, MatTabChangeEvent } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 
 import { Content, ContentType, ContentIcon } from '@data/schemas';
 import { ContentsService } from '@data/services';
 import { ActionButton, ActionDivider, ActionsService } from '@layout/main-layout/services';
 import { Splash } from '@shared/models';
+
+import { AddContentDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-contents-page',
@@ -28,6 +30,7 @@ export class ContentsPageComponent implements OnInit {
   contents$: BehaviorSubject<Content[]>;
 
   constructor(
+    private dialog: MatDialog,
     private contentsService: ContentsService,
     private actionsService: ActionsService
   ) {
@@ -73,6 +76,22 @@ export class ContentsPageComponent implements OnInit {
   }
 
   create() {
-    console.log('TODO : Content creation.');
+    this.dialog.open(AddContentDialogComponent, {
+      width: '640px',
+      autoFocus: false
+    }).afterClosed().subscribe(content => {
+      if (content) {
+        this.contentsService.addOne(content).subscribe({
+          next: (addedContent: Content) => {
+            const contents = this.contents$.value;
+
+            contents.push(addedContent);
+
+            this.contents$.next(contents);
+          },
+          error: _ => {} // Do nothing on error
+        });
+      }
+    });
   }
 }

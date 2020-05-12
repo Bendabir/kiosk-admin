@@ -58,6 +58,26 @@ export class ContentsService extends APIService {
     );
   }
 
+  addOne(content: Content, notify: boolean = true): Observable<Content> {
+    return this.http.post<Content>(this.endpoint, content).pipe(
+      map((response: any) => {
+        if (notify) {
+          this.snackBarService.showInfo(`Created content '${content.displayName}'.`);
+        }
+
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error creating content : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
+
   updateOne(content: Content, notify: boolean = true): Observable<Content> {
     const url = `${this.endpoint}/${content.id}`;
 
@@ -95,6 +115,32 @@ export class ContentsService extends APIService {
         if (notify) {
           const message = this.extractMessage(err);
           this.snackBarService.showError(`Error deleting content '${content.displayName}' : ${message}`);
+        }
+
+        return throwError(err); // Let subscribers decide what to do with errors
+      })
+    );
+  }
+
+  analyseURI(uri: string, notify: boolean = true): Observable<Content> {
+    const url = `${this.endpoint}/analysis`;
+
+    return this.http.get<Content>(url, {
+      params: {
+        uri
+      }
+    }).pipe(
+      map((response: any) => {
+        if (notify) {
+          this.snackBarService.showInfo('Analysed URI.');
+        }
+
+        return response.data;
+      }),
+      catchError(err => {
+        if (notify) {
+          const message = this.extractMessage(err);
+          this.snackBarService.showError(`Error analysis URI '${uri}' : ${message}`);
         }
 
         return throwError(err); // Let subscribers decide what to do with errors

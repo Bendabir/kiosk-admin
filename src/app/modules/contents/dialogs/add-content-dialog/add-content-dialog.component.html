@@ -1,0 +1,70 @@
+<h1 mat-dialog-title>Add a new content</h1>
+<div mat-dialog-content>
+    <mat-horizontal-stepper labelPosition="bottom" #stepper (selectionChange)="onStepChange($event)">
+        <mat-step [stepControl]="firstFormGroup" label="Analyze" state="analysis" optional>
+            <p class="instructions">You can paste and analyize a link. It will pre-fill the creation form. <b>Please review the creation form as results might not be what you expect.</b></p>
+            <form>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+                    <mat-form-field class="uri-analysis">
+                        <input #analyzedURI matInput placeholder="URI">
+                        <!-- <button mat-icon-button matSuffix matTooltip="Paste">
+                            <mat-icon>assignment</mat-icon>
+                        </button> -->
+                    </mat-form-field>
+                    <button [disabled]="!analyzedURI.value" class="analyse-button" mat-button (click)="analyse(analyzedURI.value); analyzedURI.value = ''; stepper.next()">Analyse</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" label="Content" state="content">
+            <form>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+                    <mat-form-field fxFlex="33.33%">
+                        <input matInput #contentID maxLength="32" placeholder="ID" [(ngModel)]="content.id" name="content-id" pattern="[a-zA-Z0-9\-_]+" required>
+                        <mat-hint><b>Alphanumeric.</b></mat-hint>
+                        <mat-hint align="end">{{ contentID.value.length }} / 32</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="66.67%">
+                        <mat-label>Display name</mat-label>
+                        <input matInput #displayName maxLength="64" [placeholder]="content.id" [(ngModel)]="content.displayName" name="display-name"/>
+                        <mat-hint><b>Defaults to ID</b></mat-hint>
+                        <mat-hint align="end">{{ displayName.value.length }} / 64</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+                    <mat-form-field fxFlex="66.67%">
+                        <input matInput #URI [placeholder]="isText(content.type) ? 'Message' : 'URI'" [(ngModel)]="content.uri" name="content-uri" required>
+                        <!-- <mat-hint>Enter message instead of URI for text content</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field fxFlex="33.33%">
+                        <mat-label>Type</mat-label>
+                        <mat-select [(ngModel)]="content.type" name="content-type" required>
+                            <mat-option *ngFor="let t of types" [value]="t">{{ prettifyType(t) }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="24px" fxLayoutGap.xs="0px">
+                    <mat-form-field fxFlex="100%">
+                        <textarea matInput class="description" placeholder="Description" rows="4" [(ngModel)]="content.description" name="description"></textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-step>
+
+        <ng-template matStepperIcon="analysis">
+            <mat-icon>show_chart</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="content">
+            <mat-icon>add</mat-icon>
+        </ng-template>
+    </mat-horizontal-stepper>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formCheckedByUser || !content.id || !content.type || !content.uri" [mat-dialog-close]="content">Add</button>
+    <button [disabled]="!hasPrevious(stepper)" mat-icon-button (click)="stepper.previous()">
+        <mat-icon>skip_previous</mat-icon>
+    </button>
+    <button [disabled]="!hasNext(stepper)" mat-icon-button (click)="stepper.next()">
+        <mat-icon>skip_next</mat-icon>
+    </button>
+</div>

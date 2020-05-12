@@ -6,7 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ContentsRoutingModule } from './contents-routing.module';
 import { ContentsPageComponent } from './pages';
 import { ContentCardComponent } from './parts';
-import { EditContentDialogComponent } from './dialogs';
+import { AddContentDialogComponent, EditContentDialogComponent } from './dialogs';
 
 
 @NgModule({
@@ -18,6 +18,7 @@ import { EditContentDialogComponent } from './dialogs';
     ContentCardComponent,
 
     // Dialogs
+    AddContentDialogComponent,
     EditContentDialogComponent
   ],
   imports: [
@@ -29,6 +30,7 @@ import { EditContentDialogComponent } from './dialogs';
   exports: [],
   providers: [],
   entryComponents: [
+    AddContentDialogComponent,
     EditContentDialogComponent
   ]
 })
